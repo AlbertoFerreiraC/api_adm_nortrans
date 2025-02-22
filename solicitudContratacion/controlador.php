@@ -66,6 +66,7 @@ class ApiControlador
                     'empresa' => $valor['empresa'],
                     'centro_de_costo' => $valor['centroDeCosto'],
                     'turnos_laborales' => $valor['turnosLaborales'],
+                    'tipo_bus' => $valor['tipoBus'],
                     'pre_aprueba' => $valor['preAprueba'],
                     'aprueba' => $valor['aprueba'],
                     'motivo' => $valor['motivo'],
