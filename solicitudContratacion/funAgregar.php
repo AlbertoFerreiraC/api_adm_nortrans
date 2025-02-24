@@ -3,7 +3,6 @@ include_once 'controlador.php';
 $api = new ApiControlador();
 
 $item = array(
-    'idcontratacion' => $_POST['idcontratacion'],
     'cargo' => $_POST['cargo'],
     'empresa' => $_POST['empresa'],
     'centro_de_costo' => $_POST['centrodeCosto'],
