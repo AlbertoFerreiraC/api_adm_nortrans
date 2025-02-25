@@ -5,6 +5,7 @@ $api = new ApiControlador();
 $item = array(
     'cargo' => $_POST['cargo'],
     'empresa' => $_POST['empresa'],
+    'division' => $_POST['division'], // No estaba división
     'centro_de_costo' => $_POST['centroDeCosto'],
     'turnos_laborales' => $_POST['turnosLaborales'],
     'tipo_bus' => $_POST['tipoBus'],
@@ -17,7 +18,8 @@ $item = array(
     'fecha_requerida' => $_POST['fechaRequerida'],
     'fecha_termino' => $_POST['fechaTermino'],
     'remuneracion' => $_POST['remuneracion'],
-    'comentario_general' => $_POST['comentarioGeneral'] ?? ''
+    'comentario_general' => $_POST['comentarioGeneral'],
+    'tipoContrato' => $_POST['tipoContrato']
 );
-var_dump($_POST);
+//var_dump($_POST);
 $api->agregarApi($item);
