@@ -30,10 +30,10 @@ class Sql extends DB
 
   function agregar($item)
   {
-    $query = $this->connect()->prepare("INSERT INTO contratacion (cargo, empresa, centro_de_costo, turnos_laborales,tipo_bus,pre_aprueba,aprueba,motivo,tipo_contrato,division,cantidad_solicitada,licencia_de_conducir,tipo_documento,fecha_requerida,fecha_termino,remuneracion,comentario_general,estado)VALUES(:cargo,:empresa,:centro_de_costo,:turnos_laborales,:tipo_bus,:pre_aprueba,:aprueba,:motivo,tipo_contrato,:division,:cantidad_solicitada,licencia_de_conducir,:tipo_documento,:fecha_requerida,:fecha_termino,:remuneracion, :comentario_general, 'activo');");
+    $query = $this->connect()->prepare("INSERT INTO contratacion (cargo, empresa, centro_de_costo, turnos_laborales,tipo_bus,pre_aprueba,aprueba,motivo,tipo_contrato,division,cantidad_solicitada,licencia_de_conducir,tipo_documento,fecha_requerida,fecha_termino,remuneracion,comentario_general,estado)VALUES(:cargo,:empresa,:centro_de_costo,:turnos_laborales,:tipo_bus,:pre_aprueba,:aprueba,:motivo,:tipo_contrato,:division,:cantidad_solicitada,:licencia_de_conducir,:tipo_documento,:fecha_requerida,:fecha_termino,:remuneracion, :comentario_general, 'activo');");
     $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
     $query->bindParam(":empresa", $item['empresa'], PDO::PARAM_STR);
-    $query->bindParam(":centro_de_costo", $item['centroDeCosto'], PDO::PARAM_STR);
+    $query->bindParam(":centro_de_costo", $item['centroDecosto'], PDO::PARAM_STR);
     $query->bindParam(":turnos_laborales", $item['turnosLaborales'], PDO::PARAM_STR);
     $query->bindParam(":tipo_bus", $item['tipoBus'], PDO::PARAM_STR);
     $query->bindParam(":pre_aprueba", $item['preAprueba'], PDO::PARAM_STR);
@@ -41,14 +41,13 @@ class Sql extends DB
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
     $query->bindParam(":tipo_contrato", $item['tipocontrato'], PDO::PARAM_STR);
     $query->bindParam(":division", $item['division'], PDO::PARAM_STR);
-    $query->bindParam(":cantiad_solicitada", $item['cantiadSolicitada'], PDO::PARAM_STR);
+    $query->bindParam(":cantidad_solicitada", $item['cantiadSolicitada'], PDO::PARAM_STR);
     $query->bindParam(":licencia_de_conducir", $item['licenciaDeConducir'], PDO::PARAM_STR);
     $query->bindParam(":tipo_documento", $item['tipoDocumento'], PDO::PARAM_STR);
     $query->bindParam(":fecha_requerida", $item['fechaRequerida'], PDO::PARAM_STR);
     $query->bindParam(":fecha_termino", $item['fechaTermino'], PDO::PARAM_STR);
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":comentario_general", $item['comentarioGeneral'], PDO::PARAM_STR);
-    $query->bindParam(":estado", $item['estado'], PDO::PARAM_STR);
     if ($query->execute()) {
       return "ok";
     } else {
