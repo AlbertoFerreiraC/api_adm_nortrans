@@ -4,7 +4,7 @@
     $datosRecibidos = file_get_contents("php://input");
     $datos = json_decode($datosRecibidos);
     $item = array(
-        'id' => $datos->id,
+        'id' => $datos->id
     );
     $api -> obtenerDatosParaModificarApi($item);
 ?>

@@ -26,12 +26,14 @@ class ApiControlador
                     'division' => $valor['division'],
                     'cantidad_solicitada' => $valor['cantidad_solicitada'],
                     'licencia_de_conducir' => $valor['licencia_de_conducir'],
-                    'tipo_documento' => $valor['tipo_documento'],
                     'fecha_requerida' => $valor['fecha_requerida'],
                     'fecha_termino' => $valor['fecha_termino'],
                     'remuneracion' => $valor['remuneracion'],
                     'comentario_general' => $valor['comentario_general'],
-                    'estado' => 'activo'
+                    'estado' => 'activo',
+                    'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
+                    'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
+                    'observacionPruebaConduccion' => $valor['entrevista_conduccion']
                 );
                 array_push($listaArr, $item);
             }
@@ -68,19 +70,24 @@ class ApiControlador
                     'idcontratacion' => $valor['idcontratacion'],
                     'cargo' => $valor['cargo'],
                     'empresa' => $valor['empresa'],
-                    'centro_de_costo' => $valor['centroDeCosto'],
-                    'turnos_laborales' => $valor['turnosLaborales'],
-                    'tipo_bus' => $valor['tipoBus'],
-                    'pre_aprueba' => $valor['preAprueba'],
+                    'division' => $valor['division'],
+                    'centroDeCosto' => $valor['centro_de_costo'],
+                    'turnosLaborales' => $valor['turnos_laborales'],
+                    'tipoBus' => $valor['tipo_bus'],
+                    'preaprueba' => $valor['pre_aprueba'],
                     'aprueba' => $valor['aprueba'],
                     'motivo' => $valor['motivo'],
-                    'cantidad_solicitada' => $valor['cantidadSolicitada'],
-                    'licencia_de_conducir' => $valor['licenciaDeConducir'],
-                    'tipo_documento' => $valor['tipoDocumento'],
-                    'fecha_requerida' => $valor['fechaRequerida'],
-                    'fecha_termino' => $valor['fechaTermino'],
+                    'cantidad_solicitada' => $valor['cantidad_solicitada'],
+                    'licenciaDeConducir' => $valor['licencia_de_conducir'],
+                    'fecha_requerida' => $valor['fecha_requerida'],
+                    'fecha_termino' => $valor['fecha_termino'],
                     'remuneracion' => $valor['remuneracion'],
-                    'comentario_general' => $valor['comentarioGeneral']
+                    'comentario_general' => $valor['comentario_general'],
+                    'aprueba' => $valor['aprueba'],
+                    'pre_aprueba' => $valor['pre_aprueba'],
+                    'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
+                    'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
+                    'observacionPruebaConduccion' => $valor['entrevista_conduccion']
                 );
                 array_push($listaArr, $item);
             }
