@@ -98,22 +98,33 @@ class ApiControlador
         }
     }
 
-    function modificarApi($array)
-    {
+    function modificarApi($array){
         $clasificacion = new Sql();
         //********************************************************************    
         $verificarExistencia = $clasificacion->verificar_existencia($array);
-        if (empty($verificarExistencia)) {
-            $editar = $clasificacion->modificar($array);
-            $editar == "ok";
-        } else {
+        if(empty($verificarExistencia)){
+                $editar = $clasificacion->modificar($array);
+                if($editar == "ok"){
+                    exito("ok");                    
+                }else{
+                    exito("nok");  
+                }         
+        }else{
             $idRecogido = $verificarExistencia[0]['idcontratacion'];
             $idParaModificar = $array['idcontratacion'];
-            if ($idRecogido != $idParaModificar) {
+            if($idRecogido != $idParaModificar){
                 exito("repetido");
+            }else{
+                $editar = $clasificacion->modificar($array);
+                if($editar == "ok"){
+                    exito("ok");
+                }else{
+                    exito("nok");
+                }
             }
         }
     }
+
 
     function eliminarApi($array)
     {
