@@ -5,10 +5,10 @@ include_once 'sql.php';
 class ApiControlador
 {
 
-    function listarHerramientasApi()
+    function listarHerramientasApi($array)
     {
         $clasificacion = new Sql();
-        $lista = $clasificacion->listarHerramientas();
+        $lista = $clasificacion->listarHerramientas($array);
         $listaArr = array();
         if (!empty($lista)) {
             foreach ($lista as $clave => $valor) {
@@ -59,7 +59,7 @@ class ApiControlador
         }
     }
 
-    function obtenerDatosParaModificarApi($array)
+    /* function obtenerDatosParaModificarApi($array)
     {
         $clasificacion = new Sql();
         $lista = $clasificacion->obtenerDatosParaModificar($array);
@@ -97,29 +97,30 @@ class ApiControlador
             //error("error");
             header("HTTP/1.1 401 Unauthorized");
         }
-    }
+    }*/
 
-    function modificarApi($array){
+    function modificarApi($array)
+    {
         $clasificacion = new Sql();
         //********************************************************************    
         $verificarExistencia = $clasificacion->verificar_existencia($array);
-        if(empty($verificarExistencia)){
-                $editar = $clasificacion->modificar($array);
-                if($editar == "ok"){
-                    exito("ok");                    
-                }else{
-                    exito("nok");  
-                }         
-        }else{
+        if (empty($verificarExistencia)) {
+            $editar = $clasificacion->modificar($array);
+            if ($editar == "ok") {
+                exito("ok");
+            } else {
+                exito("nok");
+            }
+        } else {
             $idRecogido = $verificarExistencia[0]['idcontratacion'];
             $idParaModificar = $array['idcontratacion'];
-            if($idRecogido != $idParaModificar){
+            if ($idRecogido != $idParaModificar) {
                 exito("repetido");
-            }else{
+            } else {
                 $editar = $clasificacion->modificar($array);
-                if($editar == "ok"){
+                if ($editar == "ok") {
                     exito("ok");
-                }else{
+                } else {
                     exito("nok");
                 }
             }

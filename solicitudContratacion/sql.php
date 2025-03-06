@@ -61,7 +61,7 @@ class Sql extends DB
     $query->bindParam(":fecha_termino", $item['fecha_termino'], PDO::PARAM_STR);
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
-    $query->bindParam(":tipo_contrato", $item['tipoContrato'], PDO::PARAM_STR);
+    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_psicolaboral", $item['observacionEntrevistaPsicolaboral'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_tecnica", $item['observacionEntrevistaTecnica'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_conduccion", $item['observacionPruebaConduccion'], PDO::PARAM_STR);
@@ -125,7 +125,7 @@ class Sql extends DB
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":comentario_general", $item['comentario_general'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
-    $query->bindParam(":tipo_contrato", $item['tipoContrato'], PDO::PARAM_STR);
+    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_psicolaboral", $item['entrevista_psicolaboral'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_tecnica", $item['entrevista_tecnica'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_conduccion", $item['entrevista_conduccion'], PDO::PARAM_STR);
