@@ -90,7 +90,9 @@ class ApiControlador
                     'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
                     'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
                     'observacion_pre_aprobacion' => $valor['observacion_pre_aprobacion'],
-                    'fecha_pre_aperobacion' => $valor['fecha_pre_aperobacion']
+                    'fecha_pre_aperobacion' => $valor['fecha_pre_aperobacion'],
+                    'fecha_aprobacion' => $valor['fecha_aprobacion'],
+                    'observacion_aprobacion' => $valor['observacion_aprobacion']
                 );
                 array_push($listaArr, $item);
             }

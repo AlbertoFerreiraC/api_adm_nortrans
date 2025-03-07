@@ -24,5 +24,7 @@ $item = array(
     'entrevista_conduccion' => $_POST['observacionPruebaConduccion'],
     'observacion_pre_aprobacion' => $_POST['observacion_pre_aprobacion'],
     'fecha_pre_aperobacion' => $_POST['fecha_pre_aperobacion'],
+    'observacion_aprobacion' => $_POST['observacion_aprobacion'],
+    'fecha_aprobacion' => $_POST['fecha_aprobacion'],
 );
 $api->modificarApi($item);
