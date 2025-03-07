@@ -106,7 +106,9 @@ class Sql extends DB
         tipo_contrato = :tipo_contrato, 
         entrevista_psicolaboral = :entrevista_psicolaboral, 
         entrevista_tecnica = :entrevista_tecnica, 
-        entrevista_conduccion = :entrevista_conduccion
+        entrevista_conduccion = :entrevista_conduccion,
+        observacion_pre_aprobacion = :observacion_pre_aprobacion,
+        fecha_pre_aperobacion = :fecha_pre_aperobacion
     WHERE idcontratacion = :idcontratacion AND estado = 'activo';");
 
     $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
@@ -129,7 +131,8 @@ class Sql extends DB
     $query->bindParam(":entrevista_psicolaboral", $item['entrevista_psicolaboral'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_tecnica", $item['entrevista_tecnica'], PDO::PARAM_STR);
     $query->bindParam(":entrevista_conduccion", $item['entrevista_conduccion'], PDO::PARAM_STR);
-
+    $query->bindParam(":observacion_pre_aprobacion", $item['observacion_pre_aprobacion'], PDO::PARAM_STR);
+    $query->bindParam(":fecha_pre_aperobacion", $item['fecha_pre_aperobacion'], PDO::PARAM_STR);
 
     if ($query->execute()) {
       return "ok";
