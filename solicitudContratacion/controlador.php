@@ -33,7 +33,9 @@ class ApiControlador
                     'estado' => 'activo',
                     'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
                     'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
-                    'observacionPruebaConduccion' => $valor['entrevista_conduccion']
+                    'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
+                    'cantidad_contratada' => $valor['cantidad_contratada'],
+                    'usuario' => $valor['usuario']
                 );
                 array_push($listaArr, $item);
             }
@@ -92,7 +94,9 @@ class ApiControlador
                     'observacion_pre_aprobacion' => $valor['observacion_pre_aprobacion'],
                     'fecha_pre_aperobacion' => $valor['fecha_pre_aperobacion'],
                     'fecha_aprobacion' => $valor['fecha_aprobacion'],
-                    'observacion_aprobacion' => $valor['observacion_aprobacion']
+                    'observacion_aprobacion' => $valor['observacion_aprobacion'],
+                    'cantidad_contratada' => $valor['cantidad_contratada'],
+                    'usuario' => $valor['usuario']
                 );
                 array_push($listaArr, $item);
             }
