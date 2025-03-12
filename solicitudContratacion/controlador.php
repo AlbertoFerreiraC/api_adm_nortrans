@@ -35,7 +35,8 @@ class ApiControlador
                     'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
                     'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
                     'cantidad_contratada' => $valor['cantidad_contratada'],
-                    'usuario' => $valor['usuario']
+                    'usuario' => $valor['usuario'],
+                    'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
                 );
                 array_push($listaArr, $item);
             }
@@ -96,7 +97,8 @@ class ApiControlador
                     'fecha_aprobacion' => $valor['fecha_aprobacion'],
                     'observacion_aprobacion' => $valor['observacion_aprobacion'],
                     'cantidad_contratada' => $valor['cantidad_contratada'],
-                    'usuario' => $valor['usuario']
+                    'usuario' => $valor['usuario'],
+                    'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
                 );
                 array_push($listaArr, $item);
             }
