@@ -46,6 +46,75 @@ class ApiControlador
             header("HTTP/1.1 401 Unauthorized");
         }
     }
+    
+    function listarContratadoApi()
+    {
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarContratado();
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'idcontratacion' => $valor['idcontratacion'],
+                    'cargo' => $valor['cargo'],
+                    'empresa' => $valor['empresa'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'turnos_laborales' => $valor['turnos_laborales'],
+                    'tipo_bus' => $valor['tipo_bus'],
+                    'pre_aprueba' => $valor['pre_aprueba'],
+                    'aprueba' => $valor['aprueba'],
+                    'motivo' => $valor['motivo'],
+                    'tipo_contrato' => $valor['tipo_contrato'],
+                    'division' => $valor['division'],
+                    'cantidad_solicitada' => $valor['cantidad_solicitada'],
+                    'licencia_de_conducir' => $valor['licencia_de_conducir'],
+                    'fecha_requerida' => $valor['fecha_requerida'],
+                    'fecha_termino' => $valor['fecha_termino'],
+                    'remuneracion' => $valor['remuneracion'],
+                    'comentario_general' => $valor['comentario_general'],
+                    'estado' => 'activo',
+                    'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
+                    'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
+                    'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
+                    'cantidad_contratada' => $valor['cantidad_contratada'],
+                    'usuario' => $valor['realizado_por'],
+                    'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
+
+    function listarSolicitudesAPI()
+    {
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarSolicitudes();
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'idcontratacion' => $valor['idcontratacion'],
+                    'empresa' => $valor['empresa'],
+                    'fecha_requerida' => $valor['fecha_requerida'],
+                    'usuario' => $valor['realizado_por'],
+                    'division' => $valor['division'],
+                    'cargo' => $valor['cargo'],
+                    'cantidad_solicitada' => $valor['cantidad_solicitada'],
+                    'estado' => 'activo',
+                    'cantidad_contratada' => $valor['cantidad_contratada']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
 
     function agregarApi($array)
     {
