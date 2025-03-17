@@ -219,4 +219,20 @@ class Sql extends DB
       return "nok";
     }
   }
+
+  function cambiarEstadoContrato($item)
+  {
+    try {
+      $query = $this->connect()->prepare("UPDATE contratacion SET 
+          estado = :estado
+          WHERE idcontratacion = :idcontratacion");
+
+      $query->bindParam(":estado", $item['estado'], PDO::PARAM_STR);
+      $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
+
+      return $query->execute();
+    } catch (Exception $e) {
+      return false;
+    }
+  }
 }

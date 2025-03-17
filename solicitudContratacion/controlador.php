@@ -46,7 +46,7 @@ class ApiControlador
             header("HTTP/1.1 401 Unauthorized");
         }
     }
-    
+
     function listarContratadoApi()
     {
         $clasificacion = new Sql();
@@ -178,27 +178,50 @@ class ApiControlador
         }
     }
 
-    function modificarApi($array){
+    function cambiarEstadoContratoApi($array)
+    {
+        $contratacion = new Sql();
+        $array['estado'] = 'inactivo';
+        $resultado = $contratacion->cambiarEstadoContrato($array);
+
+        if ($resultado) {
+            $response = array(
+                'status' => 'success',
+                'message' => 'Contrato inactivado correctamente'
+            );
+            printJSON($response);
+        } else {
+            header("HTTP/1.1 500 Internal Server Error");
+            $response = array(
+                'status' => 'error',
+                'message' => 'Error al inactivar el contrato'
+            );
+            printJSON($response);
+        }
+    }
+
+    function modificarApi($array)
+    {
         $clasificacion = new Sql();
         //********************************************************************    
         $verificarExistencia = $clasificacion->verificar_existencia($array);
-        if(empty($verificarExistencia)){
-                $editar = $clasificacion->modificar($array);
-                if($editar == "ok"){
-                    exito("ok");                    
-                }else{
-                    exito("nok");  
-                }         
-        }else{
+        if (empty($verificarExistencia)) {
+            $editar = $clasificacion->modificar($array);
+            if ($editar == "ok") {
+                exito("ok");
+            } else {
+                exito("nok");
+            }
+        } else {
             $idRecogido = $verificarExistencia[0]['idcontratacion'];
             $idParaModificar = $array['idcontratacion'];
-            if($idRecogido != $idParaModificar){
+            if ($idRecogido != $idParaModificar) {
                 exito("repetido");
-            }else{
+            } else {
                 $editar = $clasificacion->modificar($array);
-                if($editar == "ok"){
+                if ($editar == "ok") {
                     exito("ok");
-                }else{
+                } else {
                     exito("nok");
                 }
             }
