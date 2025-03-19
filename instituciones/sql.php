@@ -43,11 +43,17 @@ class Sql extends DB
 
   function agregar($item)
   {
-    $query = $this->connect()->prepare("INSERT INTO institucion (tipo_institucion, descripcion, codigo_externo, estado) VALUES  (:tipo_institucion, :escripcion, :codigo_externo, 'activo');");
+    $query = $this->connect()->prepare("INSERT INTO institucion (tipo_institucion, descripcion, codigo_externo, estado) 
+          VALUES (:tipo_institucion, :descripcion, :codigo_externo, 'activo')");
 
-    $query->bindParam(":tipo_institucion", $item['tipo_institucion'], PDO::PARAM_STR);
-    $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
-    $query->bindParam(":codigo_externo", $item['codigo_externo'], PDO::PARAM_STR);
+    if (isset($item['tipo_institucion'], $item['descripcion'], $item['codigo_externo'])) {
+      $query->bindParam(":tipo_institucion", $item['tipo_institucion'], PDO::PARAM_STR);
+      $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
+      $query->bindParam(":codigo_externo", $item['codigo_externo'], PDO::PARAM_STR);
+    } else {
+      return "nok";
+    }
+
     if ($query->execute()) {
       return "ok";
     } else {

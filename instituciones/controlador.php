@@ -5,15 +5,15 @@ include_once 'sql.php';
 class ApiControlador
 {
 
-    function listarHerramientas($array)
+    function listarHerramientas()
     {
         $clasificacion = new Sql();
-        $lista = $clasificacion->listarHerramientas($array);
+        $lista = $clasificacion->listarHerramientas();
         $listaArr = array();
         if (!empty($lista)) {
             foreach ($lista as $clave => $valor) {
                 $item = array(
-                    'id' => $valor['idinstitucion'],
+                    'idinstitucion' => $valor['idinstitucion'],
                     'tipo_institucion' => $valor['tipo_institucion'],
                     'descripcion' => $valor['descripcion'],
                     'codigo_externo' => $valor['codigo_externo'],
@@ -59,7 +59,7 @@ class ApiControlador
         if (empty($verificarExistencia)) {
             $datos = array(
                 'tipo_institucion' => $array['tipo_institucion'],
-                'descripcion' => $array['descripcin'],
+                'descripcion' => $array['descripcion'],
                 'codigo_externo' => $array['codigo_externo']
             );
             $guardar = $tipo_institucion->agregar($datos);
