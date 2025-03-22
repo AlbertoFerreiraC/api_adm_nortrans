@@ -16,47 +16,6 @@ class Sql extends DB
     }
   }
 
-  function listarContratado()
-  {
-    $query = $this->connect()->prepare("SELECT con.idcontratacion,
-        usu.nombre realizado_por, 
-        car.descripcion cargo,
-        em.descripcion empresa,
-        cen.descripcion centro_de_costo,
-        tur.descripcion turnos_laborales,
-        pre_aprueba.nombre pre_aprueba,
-        aprueba.nombre aprueba,
-        con.division,
-        con.cantidad_solicitada,
-        con.licencia_de_conducir,
-        if(ISNULL(con.fecha_requerida),'',DATE_FORMAT(con.fecha_requerida,'%d/%m/%y')) fecha_requerida,
-        con.fecha_termino,
-        con.remuneracion,
-        con.comentario_general,
-        con.motivo,
-        con.estado,
-        con.tipo_contrato,
-        con.entrevista_psicolaboral,
-        con.entrevista_tecnica,
-        con.entrevista_conduccion,
-        if(ISNULL(con.fecha_pre_aperobacion),'',DATE_FORMAT(con.fecha_pre_aperobacion,'%d/%m/%y')) fecha_pre_aperobacion,
-        if(ISNULL(con.observacion_aprobacion),'',con.observacion_aprobacion) observacion_aprobacion,
-        con.fecha_inicio_laboral,
-        con.cantidad_contratada,
-        tip.descripcion tipo_bus
-        FROM contratacion con, usuario usu,cargo car, empresa em,centro_de_costo cen,
-        turnos_laborales tur, usuario pre_aprueba, usuario aprueba, tipo_bus tip
-        WHERE con.estado = 'contratado' AND con.usuario = usu.idusuario AND 
-        con.cargo = car.idcargo AND con.empresa = em.idempresa AND 
-        con.centro_de_costo = cen.idcentro_de_costo AND con.turnos_laborales =tur.idturnos_laborales AND con.pre_aprueba = pre_aprueba.idusuario AND 
-        con.aprueba = aprueba.idusuario AND con.tipo_bus = tip.idtipo_bus");
-    if ($query->execute()) {
-      return $query->fetchAll();
-    } else {
-      return null;
-    }
-  }
-
   function listarSolicitudes()
   {
     $query = $this->connect()->prepare("SELECT con.idcontratacion,
@@ -220,19 +179,4 @@ class Sql extends DB
     }
   }
 
-  function cambiarEstadoContrato($item)
-  {
-    try {
-      $query = $this->connect()->prepare("UPDATE contratacion SET 
-          estado = :estado
-          WHERE idcontratacion = :idcontratacion");
-
-      $query->bindParam(":estado", $item['estado'], PDO::PARAM_STR);
-      $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
-
-      return $query->execute();
-    } catch (Exception $e) {
-      return false;
-    }
-  }
 }
