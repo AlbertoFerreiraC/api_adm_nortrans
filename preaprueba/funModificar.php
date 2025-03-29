@@ -18,11 +18,7 @@ $item = array(
     'fecha_requerida' => $_POST['fechaRequerida'],
     'fecha_termino' => $_POST['fechaTermino'],
     'remuneracion' => $_POST['remuneracion'],
-    'comentario_general' => $_POST['comentarioGeneral'], 
     'observacion_pre_aprobacion' => $_POST['observacion_pre_aprobacion'],
-    'fecha_pre_aperobacion' => $_POST['fecha_pre_aperobacion'],
-    'observacion_aprobacion' => $_POST['observacion_aprobacion'],
-    'fecha_aprobacion' => $_POST['fecha_aprobacion'],
-    'fecha_inicio_laboral' => $_POST['fecha_inicio_laboral'],
+    'fecha_pre_aperobacion' => $_POST['fecha_pre_aperobacion']
 );
 $api->modificarApi($item);

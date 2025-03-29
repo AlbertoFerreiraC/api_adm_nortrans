@@ -113,10 +113,10 @@ class ApiControlador
     }
 
 
-    function eliminarApi($array)
+    function rechazarApi($array)
     {
         $clasificacion = new Sql();
-        $eliminar = $clasificacion->eliminar($array);
+        $eliminar = $clasificacion->rechazar($array);
         if ($eliminar == "ok") {
             exito("ok");
         } else {

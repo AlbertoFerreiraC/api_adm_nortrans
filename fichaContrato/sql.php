@@ -64,9 +64,9 @@ class Sql extends DB
 
     function verificar_existencia($item)
     {
-        $query = $this->connect()->prepare("select * from ficha_contrato where estado = 'activo' and 
-        idficha_contrato = :idficha_contrato");
-        $query->bindParam(":idficha_contrato", $item['idficha_contrato'], PDO::PARAM_STR);
+        $query = $this->connect()->prepare("SELECT * FROM contratacion WHERE estado = 'activo' AND 
+        idcontratacion = :idcontratacion");
+        $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
         if ($query->execute()) {
             return $query->fetchAll();
         } else {
@@ -76,35 +76,54 @@ class Sql extends DB
 
     function modificar($item)
     {
-        $query = $this->connect()->prepare("UPDATE ficha_contrato SET
-            idficha_contrato = :idficha_contrato , 
-            contratacion = :contratacion , 
-            empresa = :empresa , 
-            division = :division , 
-            cargo = :cargo , 
-            tipo_contrato = :tipo_contrato , 
-            turnos_laborales = :turnos_laborales , 
-            fecha_inicio = :fecha_inicio , 
-            fecha_fin = :fecha_fin, 
-            sueldo_liquido = :sueldo_liquido , 
-            personal = :personal , 
-            tipo_anexo = :tipo_anexo , 
-            fecha_anexo = :fecha_anexo
-            WHERE
-            idficha_contrato = :idficha_contrato AND estado = 'activo';");
+        $query = $this->connect()->prepare("UPDATE contratacion SET
+        cargo = :cargo, 
+        empresa = :empresa, 
+        division = :division, 
+        centro_de_costo = :centro_de_costo, 
+        turnos_laborales = :turnos_laborales, 
+        tipo_bus = :tipo_bus, 
+        pre_aprueba = :pre_aprueba, 
+        aprueba = :aprueba, 
+        motivo = :motivo, 
+        cantidad_solicitada = :cantidad_solicitada, 
+        licencia_de_conducir = :licencia_de_conducir, 
+        tipo_contrato = :tipo_contrato, 
+        fecha_requerida = :fecha_requerida, 
+        fecha_termino = :fecha_termino, 
+        remuneracion = :remuneracion, 
+        comentario_general = :comentario_general,
+        entrevista_psicolaboral = :entrevista_psicolaboral,
+        entrevista_tecnica = :entrevista_tecnica,
+        entrevista_conduccion = :entrevista_conduccion,
+        observacion_pre_aprobacion = :observacion_pre_aprobacion,
+        fecha_pre_aperobacion = :fecha_pre_aperobacion
+        WHERE
+        idcontratacion = :idcontratacion AND estado = 'activo';");
 
-        $query->bindParam(":idficha_contrato", $item['idficha_contrato'], PDO::PARAM_INT);
-        $query->bindParam(":contratacion", $item['contratacion'], PDO::PARAM_STR);
+        $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
+        $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
         $query->bindParam(":empresa", $item['empresa'], PDO::PARAM_STR);
         $query->bindParam(":division", $item['division'], PDO::PARAM_STR);
-        $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
-        $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
+        $query->bindParam(":centro_de_costo", $item['centro_de_costo'], PDO::PARAM_STR);
         $query->bindParam(":turnos_laborales", $item['turnos_laborales'], PDO::PARAM_STR);
-        $query->bindParam(":fecha_inicio", $item['fecha_inicio'], PDO::PARAM_STR);
-        $query->bindParam(":fecha_fin", $item['fecha_fin'], PDO::PARAM_STR);
-        $query->bindParam(":personal", $item['personal'], PDO::PARAM_STR);
-        $query->bindParam(":tipo_anexo", $item['tipo_anexo'], PDO::PARAM_STR);
-        $query->bindParam(":fecha_anexo", $item['fecha_anexo'], PDO::PARAM_STR);
+        $query->bindParam(":tipo_bus", $item['tipo_bus'], PDO::PARAM_STR);
+        $query->bindParam(":pre_aprueba", $item['pre_aprueba'], PDO::PARAM_STR);
+        $query->bindParam(":aprueba", $item['aprueba'], PDO::PARAM_STR);
+        $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
+        $query->bindParam(":cantidad_solicitada", $item['cantidad_solicitada'], PDO::PARAM_STR);
+        $query->bindParam(":licencia_de_conducir", $item['licencia_de_conducir'], PDO::PARAM_STR);
+        $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
+        $query->bindParam(":fecha_requerida", $item['fecha_requerida'], PDO::PARAM_STR);
+        $query->bindParam(":fecha_termino", $item['fecha_termino'], PDO::PARAM_STR);
+        $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
+        $query->bindParam(":comentario_general", $item['comentario_general'], PDO::PARAM_STR);
+        $query->bindParam(":entrevista_psicolaboral", $item['entrevista_psicolaboral'], PDO::PARAM_STR);
+        $query->bindParam(":entrevista_tecnica", $item['entrevista_tecnica'], PDO::PARAM_STR);
+        $query->bindParam(":entrevista_conduccion", $item['entrevista_conduccion'], PDO::PARAM_STR);
+        $query->bindParam(":observacion_pre_aprobacion", $item['observacion_pre_aprobacion'], PDO::PARAM_STR);
+        $query->bindParam(":fecha_pre_aperobacion", $item['fecha_pre_aperobacion'], PDO::PARAM_STR);
+
         if ($query->execute()) {
             return "ok";
         } else {
