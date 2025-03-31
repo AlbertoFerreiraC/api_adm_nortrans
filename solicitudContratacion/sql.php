@@ -6,17 +6,9 @@ class Sql extends DB
 {
 
 
-  function listarHerramientas(){
+  function listarHerramientas()
+  {
     $query = $this->connect()->prepare("select * from contratacion where estado = 'activo'");
-    if ($query->execute()) {
-      return $query->fetchAll();
-    } else {
-      return null;
-    }
-  }
-
-  function listarRequisitoContratacion(){
-    $query = $this->connect()->prepare("select * from requisito_de_seleccion where estado = 'activo'");
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
@@ -61,19 +53,22 @@ class Sql extends DB
   function agregar($item)
   {
     $query = $this->connect()->prepare("INSERT INTO contratacion (
-      usuario, cargo, empresa, centro_de_costo, turnos_laborales, tipo_bus, 
+      cargo, empresa, centro_de_costo, turnos_laborales, tipo_bus, 
       pre_aprueba, aprueba, division, cantidad_solicitada, 
       licencia_de_conducir, fecha_requerida, 
       fecha_termino, remuneracion, comentario_general, 
-      estado, motivo, tipo_contrato
+      estado, motivo, tipo_contrato, entrevista_psicolaboral, 
+      entrevista_tecnica, entrevista_conduccion
   ) VALUES (
-      :usuario,:cargo, :empresa, :centro_de_costo, :turnos_laborales, :tipo_bus, 
+      :cargo, :empresa, :centro_de_costo, :turnos_laborales, :tipo_bus, 
       :pre_aprueba, :aprueba, :division, :cantidad_solicitada, 
       :licencia_de_conducir, :fecha_requerida, 
       :fecha_termino, :remuneracion, :comentario_general, 
-      'activo', :motivo, :tipo_contrato
-)");
-    $query->bindParam(":usuario", $item['usuario'], PDO::PARAM_STR);
+      'activo', :motivo, :tipo_contrato, :entrevista_psicolaboral, 
+      :entrevista_tecnica, :entrevista_conduccion
+
+  )");
+
     $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
     $query->bindParam(":empresa", $item['empresa'], PDO::PARAM_STR);
     $query->bindParam(":centro_de_costo", $item['centro_de_costo'], PDO::PARAM_STR);
@@ -89,11 +84,14 @@ class Sql extends DB
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
     $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_psicolaboral", $item['observacionEntrevistaPsicolaboral'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_tecnica", $item['observacionEntrevistaTecnica'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_conduccion", $item['observacionPruebaConduccion'], PDO::PARAM_STR);
     $query->bindParam(":comentario_general", $item['comentarioGeneral'], PDO::PARAM_STR);
     if ($query->execute()) {
       return "ok";
     } else {
-      return $query;
+      return "nok";
     }
   }
 
@@ -127,7 +125,10 @@ class Sql extends DB
         remuneracion = :remuneracion, 
         comentario_general = :comentario_general, 
         motivo = :motivo, 
-        tipo_contrato = :tipo_contrato,        
+        tipo_contrato = :tipo_contrato, 
+        entrevista_psicolaboral = :entrevista_psicolaboral, 
+        entrevista_tecnica = :entrevista_tecnica, 
+        entrevista_conduccion = :entrevista_conduccion,
         observacion_pre_aprobacion = :observacion_pre_aprobacion,
         fecha_pre_aperobacion = :fecha_pre_aperobacion,
         fecha_aprobacion = :fecha_aprobacion,
@@ -150,7 +151,10 @@ class Sql extends DB
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":comentario_general", $item['comentario_general'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
-    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);   
+    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_psicolaboral", $item['entrevista_psicolaboral'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_tecnica", $item['entrevista_tecnica'], PDO::PARAM_STR);
+    $query->bindParam(":entrevista_conduccion", $item['entrevista_conduccion'], PDO::PARAM_STR);
     $query->bindParam(":observacion_pre_aprobacion", $item['observacion_pre_aprobacion'], PDO::PARAM_STR);
     $query->bindParam(":fecha_pre_aperobacion", $item['fecha_pre_aperobacion'], PDO::PARAM_STR);
     $query->bindParam(":observacion_aprobacion", $item['observacion_aprobacion'], PDO::PARAM_STR);
@@ -175,54 +179,4 @@ class Sql extends DB
     }
   }
 
-  function obtenerID(){
-    $query = $this->connect()->prepare("select max(idcontratacion) id from contratacion");
-    if ($query->execute()) {
-      return $query->fetchAll();
-    } else {
-      return null;
-    }
-  }
-
-  function agregarDetalle($item)
-  {
-    $query = $this->connect()->prepare("insert into detalle_contratacion(contratacion,requisito_de_seleccion,observacion,estado) values(:contratacion,:requisito,:observacion,'activo')");
-    $query->bindParam(":contratacion", $item['contratacion'], PDO::PARAM_STR);
-    $query->bindParam(":requisito", $item['requisito'], PDO::PARAM_STR);
-    $query->bindParam(":observacion", $item['observacion'], PDO::PARAM_STR);
-    if ($query->execute()) {
-      return "ok";
-    } else {
-      return "nok";
-    }
-  }
-
-  function listarRequisitos($item)
-  {
-      $query = $this->connect()->prepare("select det.contratacion, det.iddetalle_contratacion, re.descripcion requisito, det.observacion
-        from detalle_contratacion det, requisito_de_seleccion re
-        where det.estado = 'activo' and det.requisito_de_seleccion = re.idrequisito_de_seleccion and 
-        det.contratacion = :id");
-        $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
-      if ($query->execute()) {      
-        return $query->fetchAll();
-      } else {
-        return null;
-      }
-    }
-
-    function eliminarDetalle($item)
-    {
-      $query = $this->connect()->prepare("update detalle_contratacion set estado = 'inactivo' where iddetalle_contratacion = :contratacion");
-      $query->bindParam(":contratacion", $item['contratacion'], PDO::PARAM_STR);
-      if ($query->execute()) {
-        return "ok";
-      } else {
-        return "nok";
-      }
-    }
-
-  }
-
-  
-
+}
