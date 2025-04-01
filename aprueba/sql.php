@@ -29,7 +29,7 @@ class Sql extends DB
         JOIN cargo car ON car.idcargo = con.cargo
         JOIN centro_de_costo cdc ON cdc.idcentro_de_costo = con.centro_de_costo
         JOIN usuario usu ON usu.idusuario = con.usuario
-        WHERE con.estado = 'activo'
+        WHERE con.estado = 'pre_aprobado'
         AND con.aprueba = :id");
     $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
     if ($query->execute()) {
@@ -58,8 +58,27 @@ class Sql extends DB
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
       if ($query->execute()) {
-        // Registrar la acción en un log si es necesario
         $this->registrarLog("Aprobación exitosa para ID: " . $item['id']);
+        return "ok";
+      } else {
+        $this->registrarError("Error al aprobar ID: " . $item['id'] . ". Error: " . implode(", ", $query->errorInfo()));
+        return "nok";
+      }
+    } catch (PDOException $e) {
+      $this->registrarError("Excepción al aprobar ID: " . $item['id'] . ". Error: " . $e->getMessage());
+      return "nok";
+    }
+  }
+
+  function rechazar($item)
+  {
+    try {
+      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'no_aprobado' WHERE idcontratacion = :id AND estado = 'activo'");
+      $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+
+      if ($query->execute()) {
+        // Registrar la acción en un log si es necesario
+        $this->registrarLog("Rechazo exitoso para ID: " . $item['id']);
         return "ok";
       } else {
         // Registrar el error en un log
@@ -69,16 +88,6 @@ class Sql extends DB
     } catch (PDOException $e) {
       // Registrar la excepción en un log
       $this->registrarError("Excepción al aprobar ID: " . $item['id'] . ". Error: " . $e->getMessage());
-      return "nok";
-    }
-  }
-  function rechazar($item)
-  {
-    $query = $this->connect()->prepare("update contratacion set estado = 'no_aprobado' where idcontratacion = :id and estado = 'activo'");
-    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
-    if ($query->execute()) {
-      return "ok";
-    } else {
       return "nok";
     }
   }

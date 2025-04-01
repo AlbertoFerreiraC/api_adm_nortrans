@@ -115,28 +115,17 @@ class ApiControlador
     function aprobarApi($array)
     {
         $clasificacion = new Sql();
-        //********************************************************************    
-        $verificarExistencia = $clasificacion->verificar_existencia($array);
-        if (empty($verificarExistencia)) {
-            $editar = $clasificacion->aprobar($array);
-            if ($editar == "ok") {
-                exito("ok");
-            } else {
-                exito("nok");
-            }
+
+        if (!isset($array['id']) || empty($array['id'])) {
+            exito("nok");
+            return;
+        }
+
+        $editar = $clasificacion->aprobar($array);
+        if ($editar == "ok") {
+            exito("ok");
         } else {
-            $idRecogido = $verificarExistencia[0]['idcontratacion'];
-            $idParaModificar = $array['idcontratacion'];
-            if ($idRecogido != $idParaModificar) {
-                exito("repetido");
-            } else {
-                $editar = $clasificacion->aprobar($array);
-                if ($editar == "ok") {
-                    exito("ok");
-                } else {
-                    exito("nok");
-                }
-            }
+            exito("nok");
         }
     }
 

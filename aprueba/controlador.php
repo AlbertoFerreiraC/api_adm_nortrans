@@ -116,8 +116,14 @@ class ApiControlador
     function rechazarApi($array)
     {
         $clasificacion = new Sql();
-        $eliminar = $clasificacion->rechazar($array);
-        if ($eliminar == "ok") {
+
+        if (!isset($array['id']) || empty($array['id'])) {
+            exito("nok");
+            return;
+        }
+
+        $editar = $clasificacion->rechazar($array);
+        if ($editar == "ok") {
             exito("ok");
         } else {
             exito("nok");
