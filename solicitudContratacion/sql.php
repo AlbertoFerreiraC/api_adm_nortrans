@@ -132,7 +132,8 @@ class Sql extends DB
         observacion_pre_aprobacion = :observacion_pre_aprobacion,
         fecha_pre_aperobacion = :fecha_pre_aperobacion,
         fecha_aprobacion = :fecha_aprobacion,
-        observacion_aprobacion = :observacion_aprobacion
+        observacion_aprobacion = :observacion_aprobacion,
+        fecha_inicio_laboral = :fecha_inicio_laboral
     WHERE idcontratacion = :idcontratacion AND estado = 'activo';");
 
     $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
@@ -159,6 +160,7 @@ class Sql extends DB
     $query->bindParam(":fecha_pre_aperobacion", $item['fecha_pre_aperobacion'], PDO::PARAM_STR);
     $query->bindParam(":observacion_aprobacion", $item['observacion_aprobacion'], PDO::PARAM_STR);
     $query->bindParam(":fecha_aprobacion", $item['fecha_aprobacion'], PDO::PARAM_STR);
+    $query->bindParam(":fecha_inicio_laboral", $item['fecha_inicio_laboral'], PDO::PARAM_STR);
 
     if ($query->execute()) {
       return "ok";
