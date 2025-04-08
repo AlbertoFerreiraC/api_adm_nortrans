@@ -70,18 +70,29 @@ class Sql extends DB
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
       if ($query->execute()) {
-        $this->registrarLog("Aprobación exitosa para ID: " . $item['id']);
+      //  $this->registrarLog("Aprobación exitosa para ID: " . $item['id']);
         return "ok";
       } else {
-        $this->registrarError("Error al aprobar ID: " . $item['id'] . ". Error: " . implode(", ", $query->errorInfo()));
+//$this->registrarError("Error al aprobar ID: " . $item['id'] . ". Error: " . implode(", ", $query->errorInfo()));
         return "nok";
       }
     } catch (PDOException $e) {
-      $this->registrarError("Excepción al aprobar ID: " . $item['id'] . ". Error: " . $e->getMessage());
+     // $this->registrarError("Excepción al aprobar ID: " . $item['id'] . ". Error: " . $e->getMessage());
       return "nok";
     }
   }
 
+  function obtenerDatosParaModificar($item)
+  {
+    $query = $this->connect()->prepare("select * from contratacion where estado = 'activo' and 
+      idcontratacion = :id");
+    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
+    }
+  }
 
   function rechazar($item)
   {

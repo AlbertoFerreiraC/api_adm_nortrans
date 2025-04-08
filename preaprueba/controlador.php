@@ -44,6 +44,32 @@ class ApiControlador
         }
     }
 
+    function obtenerDatosParaModificarApi($array)
+    {
+        $clasificacion = new Sql();
+        $lista = $clasificacion->obtenerDatosParaModificar($array);
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'idcontratacion' => $valor['idcontratacion'],
+                    'cargo' => $valor['cargo'],
+                    'empresa' => $valor['empresa'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'pre_aprueba' => $valor['pre_aprueba'],
+                    'division' => $valor['division'],
+                    'remuneracion' => $valor['remuneracion'],
+                    'estado' => 'activo',
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
+
     function listarPreApruebaApi($array)
     {
         $clasificacion = new Sql();

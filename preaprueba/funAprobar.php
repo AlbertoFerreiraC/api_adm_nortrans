@@ -1,24 +1,27 @@
 <?php
 include_once 'controlador.php';
+$api = new ApiControlador();
 $datosRecibidos = file_get_contents("php://input");
+$datos = json_decode($datosRecibidos);
+
 if (!$datosRecibidos) {
     header('Content-Type: application/json');
     echo json_encode(['mensaje' => 'nok', 'error' => 'No se recibieron datos']);
     exit;
 }
-$datos = json_decode($datosRecibidos);
+
 if ($datos === null) {
     header('Content-Type: application/json');
     echo json_encode(['mensaje' => 'nok', 'error' => 'Error al decodificar JSON: ' . json_last_error_msg()]);
     exit;
 }
-if (!isset($datos->id) || empty($datos->id)) {
+if (!isset($datos->idcontratacion) || empty($datos->idcontratacion)) {
     header('Content-Type: application/json');
     echo json_encode(['mensaje' => 'nok', 'error' => 'ID no proporcionado']);
     exit;
 }
-$api = new ApiControlador();
+
 $item = array(
-    'id' => $datos->id
+    'id' => $datos->idcontratacion
 );
 $api->aprobarApi($item);

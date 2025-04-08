@@ -54,7 +54,7 @@ class Sql extends DB
   function aprobar($item)
   {
     try {
-      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'aprobado' WHERE idcontratacion = :id AND estado = 'activo'");
+      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'aprobado' WHERE idcontratacion = :id AND estado = 'pre_aprobado'");
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
       if ($query->execute()) {
@@ -73,7 +73,7 @@ class Sql extends DB
   function rechazar($item)
   {
     try {
-      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'no_aprobado' WHERE idcontratacion = :id AND estado = 'activo'");
+      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'no_aprobado' WHERE idcontratacion = :id AND estado = 'pre_aprobado'");
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
       if ($query->execute()) {
@@ -92,6 +92,17 @@ class Sql extends DB
     }
   }
 
+  function obtenerDatosParaModificar($item)
+  {
+    $query = $this->connect()->prepare("select * from contratacion where estado = 'pre_aprobado' and 
+      idcontratacion = :id");
+    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
+    }
+  }
 
   private function registrarLog($mensaje) {}
 

@@ -99,7 +99,7 @@ class Sql extends DB
         observacion_pre_aprobacion = :observacion_pre_aprobacion,
         fecha_pre_aperobacion = :fecha_pre_aperobacion
         WHERE
-        idcontratacion = :idcontratacion AND estado = 'activo';");
+        idcontratacion = :idcontratacion AND estado = 'contratado';");
 
         $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
         $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
@@ -133,7 +133,7 @@ class Sql extends DB
 
     function obtenerDatosParaModificar($item)
     {
-        $query = $this->connect()->prepare("select * from ficha_contrato where estado = 'activo' and 
+        $query = $this->connect()->prepare("select * from ficha_contrato where estado = 'contratado' and 
         contratacion = :id");
         $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
         if ($query->execute()) {
