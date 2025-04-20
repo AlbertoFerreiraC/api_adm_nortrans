@@ -16,6 +16,7 @@ class ApiControlador
                     'personal' => $valor['personal'],
                     'tipo_documento' => $valor['tipo_documento'],
                     'fecha_expiracion' => $valor['fecha_expiracion'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
                 );
                 array_push($listaArr, $item);
             }
