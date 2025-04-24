@@ -5,8 +5,7 @@ include_once 'sql.php';
 class ApiControlador
 {
 
-    function listarHerramientasApi()
-    {
+    function listarHerramientasApi(){
         $clasificacion = new Sql();
         $lista = $clasificacion->listarHerramientas();
         $listaArr = array();
@@ -37,6 +36,25 @@ class ApiControlador
                     'cantidad_contratada' => $valor['cantidad_contratada'],
                     'usuario' => $valor['usuario'],
                     'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
+
+    function listarRequisitoContratacionApi(){
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarRequisitoContratacion();
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'id' => $valor['idrequisito_de_seleccion'],
+                    'descripcion' => $valor['descripcion']
                 );
                 array_push($listaArr, $item);
             }
@@ -82,9 +100,20 @@ class ApiControlador
         if (empty($verificarExistencia)) {
             $guardar = $clasificacion->agregar($array);
             if ($guardar == "ok") {
+                $idGenerado = $clasificacion->obtenerID();
+                foreach ($array['tabla']as $clave => $valor) {
+                    $datosDetalle = array( 
+                        'contratacion'=> $idGenerado[0]['id'],
+                        'requisito'=> $valor->requisito,
+                        'observacion'=> $valor->observacion
+                    );
+                    //printJSON($datosDetalle);
+                    $clasificacion->agregarDetalle($datosDetalle);
+                }
                 exito("ok");
             } else {
                 exito("nok");
+              //  return printJSON($guardar);
             }
         }
     }
@@ -136,6 +165,26 @@ class ApiControlador
         }
     }
 
+    function listarRequisitosPorContratacion($array){
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarRequisitos($array);
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'idContratacion' => $valor['contratacion'],
+                    'idDetalle' => $valor['iddetalle_contratacion'],
+                    'requisito' => $valor['requisito'],
+                    'observacion' => $valor['observacion']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
+
     function modificarApi($array)
     {
         $clasificacion = new Sql();
@@ -169,6 +218,28 @@ class ApiControlador
     {
         $clasificacion = new Sql();
         $eliminar = $clasificacion->eliminar($array);
+        if ($eliminar == "ok") {
+            exito("ok");
+        } else {
+            exito("nok");
+        }
+    }
+
+    function agregarRequisitoDetalleApi($array)
+    {
+        $clasificacion = new Sql();
+        $eliminar = $clasificacion->agregarDetalle($array);
+        if ($eliminar == "ok") {
+            exito("ok");
+        } else {
+            exito("nok");
+        }
+    }
+
+    function eliminarDetalleRequisitoApi($array)
+    {
+        $clasificacion = new Sql();
+        $eliminar = $clasificacion->eliminarDetalle($array);
         if ($eliminar == "ok") {
             exito("ok");
         } else {
