@@ -66,18 +66,15 @@ class Sql extends DB
   function aprobar($item)
   {
     try {
-      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'pe_aprobado' WHERE idcontratacion = :id AND estado = 'activo'");
+      $query = $this->connect()->prepare("UPDATE contratacion SET estado = 'pre_aprobado' WHERE idcontratacion = :id AND estado = 'activo'");
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
       if ($query->execute()) {
-      //  $this->registrarLog("Aprobación exitosa para ID: " . $item['id']);
         return "ok";
       } else {
-//$this->registrarError("Error al aprobar ID: " . $item['id'] . ". Error: " . implode(", ", $query->errorInfo()));
         return "nok";
       }
     } catch (PDOException $e) {
-     // $this->registrarError("Excepción al aprobar ID: " . $item['id'] . ". Error: " . $e->getMessage());
       return "nok";
     }
   }

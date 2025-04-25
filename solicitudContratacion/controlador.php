@@ -246,6 +246,40 @@ class ApiControlador
             exito("nok");
         }
     }
+
+    function listarDatosContratoPorConfirmarApi($array){
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarDatosContratoPorConfirmar($array);
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'motivo' => $valor['motivo'],
+                    'division' => $valor['division'],
+                    'cargo' => $valor['cargo'],
+                    'empresa' => $valor['empresa'],
+                    'centro' => $valor['centro'],
+                    'cantidad_solicitada' => $valor['cantidad_solicitada'],
+                    'licencia_de_conducir' => $valor['licencia_de_conducir'],
+                    'turno' => $valor['turno'],
+                    'tipo_contrato' => $valor['tipo_contrato'],
+                    'fecha_requerida' => $valor['fecha_requerida'],
+                    'fecha_termino' => $valor['fecha_termino'],
+                    'remuneracion' => $valor['remuneracion'],
+                    'comentario_general' => $valor['comentario_general'],
+                    'observacion_pre_aprobacion' => $valor['observacion_pre_aprobacion'],
+                    'observacion_aprobacion' => $valor['observacion_aprobacion'],
+                    'tipo_bus' => $valor['tipo_bus'],
+                    'estado' => $valor['estado']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
 } //FIN API SESIONES
 
 function error($mensaje)

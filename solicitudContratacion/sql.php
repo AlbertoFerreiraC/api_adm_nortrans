@@ -6,7 +6,8 @@ class Sql extends DB
 {
 
 
-  function listarHerramientas(){
+  function listarHerramientas()
+  {
     $query = $this->connect()->prepare("select * from contratacion where estado = 'activo'");
     if ($query->execute()) {
       return $query->fetchAll();
@@ -15,7 +16,8 @@ class Sql extends DB
     }
   }
 
-  function listarRequisitoContratacion(){
+  function listarRequisitoContratacion()
+  {
     $query = $this->connect()->prepare("select * from requisito_de_seleccion where estado = 'activo'");
     if ($query->execute()) {
       return $query->fetchAll();
@@ -150,7 +152,7 @@ class Sql extends DB
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":comentario_general", $item['comentario_general'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
-    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);   
+    $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
     $query->bindParam(":observacion_pre_aprobacion", $item['observacion_pre_aprobacion'], PDO::PARAM_STR);
     $query->bindParam(":fecha_pre_aperobacion", $item['fecha_pre_aperobacion'], PDO::PARAM_STR);
     $query->bindParam(":observacion_aprobacion", $item['observacion_aprobacion'], PDO::PARAM_STR);
@@ -175,7 +177,8 @@ class Sql extends DB
     }
   }
 
-  function obtenerID(){
+  function obtenerID()
+  {
     $query = $this->connect()->prepare("select max(idcontratacion) id from contratacion");
     if ($query->execute()) {
       return $query->fetchAll();
@@ -199,30 +202,56 @@ class Sql extends DB
 
   function listarRequisitos($item)
   {
-      $query = $this->connect()->prepare("select det.contratacion, det.iddetalle_contratacion, re.descripcion requisito, det.observacion
+    $query = $this->connect()->prepare("select det.contratacion, det.iddetalle_contratacion, re.descripcion requisito, det.observacion
         from detalle_contratacion det, requisito_de_seleccion re
         where det.estado = 'activo' and det.requisito_de_seleccion = re.idrequisito_de_seleccion and 
         det.contratacion = :id");
-        $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
-      if ($query->execute()) {      
-        return $query->fetchAll();
-      } else {
-        return null;
-      }
+    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
     }
-
-    function eliminarDetalle($item)
-    {
-      $query = $this->connect()->prepare("update detalle_contratacion set estado = 'inactivo' where iddetalle_contratacion = :contratacion");
-      $query->bindParam(":contratacion", $item['contratacion'], PDO::PARAM_STR);
-      if ($query->execute()) {
-        return "ok";
-      } else {
-        return "nok";
-      }
-    }
-
   }
 
-  
-
+  function eliminarDetalle($item)
+  {
+    $query = $this->connect()->prepare("update detalle_contratacion set estado = 'inactivo' where iddetalle_contratacion = :contratacion");
+    $query->bindParam(":contratacion", $item['contratacion'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return "ok";
+    } else {
+      return "nok";
+    }
+  }
+  function listarDatosContratoPorConfirmar($item)
+  {
+    $query = $this->connect()->prepare("select 
+        con.motivo,
+        con.division,
+        car.descripcion cargo,
+        em.descripcion empresa,
+        cen.descripcion centro,
+        con.cantidad_solicitada,
+        if(isnull(con.tipo_bus),'',(select tip.descripcion from tipo_bus tip where tip.idtipo_bus = con.tipo_bus)) tipo_bus,
+        con.licencia_de_conducir,
+        tur.descripcion turno,
+        con.estado,
+        con.tipo_contrato,
+        date_format(con.fecha_requerida,'%d/%m/%Y') fecha_requerida,
+        if(isnull(con.fecha_termino),'',date_format(con.fecha_termino,'%d/%m/%Y')) fecha_termino,
+        con.remuneracion,
+        if(isnull(con.comentario_general),'',con.comentario_general) comentario_general,
+        if(isnull(con.observacion_pre_aprobacion),'',con.observacion_pre_aprobacion) observacion_pre_aprobacion,
+        if(isnull(con.observacion_aprobacion),'',con.observacion_aprobacion) observacion_aprobacion
+        from contratacion con, cargo car, empresa em, centro_de_costo cen, turnos_laborales tur
+        where con.cargo = car.idcargo and con.empresa = em.idempresa and con.centro_de_costo = cen.idcentro_de_costo and 
+        con.turnos_laborales = tur.idturnos_laborales and con.idcontratacion = :id");
+    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
+    }
+  }
+}
