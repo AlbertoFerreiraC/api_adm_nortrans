@@ -95,7 +95,7 @@ class ApiControlador
         if (!empty($lista)) {
             foreach ($lista as $clave => $valor) {
                 $item = array(
-                    'id' => $valor['idcargo_organizacional'],
+                    'idcargo_organizacional' => $valor['idcargo_organizacional'],
                     'area_negocio' => $valor['area_negocio'],
                     'area_dependencia' => $valor['area_dependencia'],
                     'nombre' => $valor['nombre'],
