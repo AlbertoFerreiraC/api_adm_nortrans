@@ -11,7 +11,7 @@ class ApiControlador{
         if(!empty($lista)){
             foreach ($lista as $clave => $valor) {
                 $item = array(
-                   'id'=> $valor['idtipo_documento_maquina'],
+                   'id'=> $valor['iddocumento_de_maquina'],
                    'descripcion'=> $valor['descripcion']
                );
                array_push($listaArr, $item);               
@@ -50,7 +50,7 @@ class ApiControlador{
         if(!empty($lista)){
             foreach ($lista as $clave => $valor) {
                 $item = array(
-                   'id'=> $valor['idtipo_documento_maquina'],
+                   'id'=> $valor['iddocumento_de_maquina'],
                    'descripcion'=> $valor['descripcion']
                );
                array_push($listaArr, $item);               
@@ -78,7 +78,7 @@ class ApiControlador{
                     exito("nok");
                 }          
         }else{
-            $idRecogido = $verificarExistencia[0]['idtipo_documento_maquina'];
+            $idRecogido = $verificarExistencia[0]['iddocumento_de_maquina'];
             $idParaModificar = $array['id'];
             if($idRecogido != $idParaModificar){
                 exito("repetido");
