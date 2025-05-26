@@ -30,10 +30,11 @@ class Sql extends DB
 
   function agregar($item)
   {
-    $query = $this->connect()->prepare("INSERT INTO maquina (patente, numero_interno_maquina, anho_maquina, capacidad_estanque, secuencia_mantenimiento, numero_asientos, numero_puertas, centro_de_costo, padron, estado VALUES (patente, numero_interno_maquina, anho_maquina, capacidad_estanque, secuencia_mantenimiento, numero_asientos, numero_puertas, padron, 'activo');");
+    $query = $this->connect()->prepare("INSERT INTO maquina (patente, numero_interno_maquina, tipo_maquina, anho_maquina, capacidad_estanque, secuencia_mantenimiento, numero_asientos, numero_puertas, centro_de_costo, padron, estado VALUES (:patente, :numero_interno_maquina, :tipo_maquina, :anho_maquina, :capacidad_estanque, :secuencia_mantenimiento, :numero_asientos, :numero_puertas, :padron, 'activo');");
 
     $query->bindParam(":patente", $item['patente'], PDO::PARAM_STR);
     $query->bindParam(":numero_interno_maquina", $item['numero_interno_maquina'], PDO::PARAM_STR);
+    $query->bindParam(":tipo_maquina", $item['tipo_maquina'], PDO::PARAM_STR);
     $query->bindParam(":anho_maquina", $item['anho_maquina'], PDO::PARAM_STR);
     $query->bindParam(":capacidad_estanque", $item['capacidad_estanque'], PDO::PARAM_STR);
     $query->bindParam(":secuencia_mantenimiento", $item['secuencia_mantenimiento'], PDO::PARAM_STR);
