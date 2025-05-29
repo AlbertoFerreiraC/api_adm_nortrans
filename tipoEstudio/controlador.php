@@ -87,7 +87,7 @@ class ApiControlador
             if ($idRecogido != $idParaModificar) {
                 exito("repetido");
             } else {
-                $editar = $clasificacion->modificar($datos);
+                $editar = $clasificacion->modificar($array);
                 if ($editar == "ok") {
                     exito("ok");
                 } else {
