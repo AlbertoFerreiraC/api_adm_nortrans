@@ -5,7 +5,15 @@
     $datos = json_decode($datosRecibidos);
     $item = array(
         'id' => $datos->id,
-        'descripcion' => $datos->descripcion
+        'comuna' => $datos->comuna,
+        'condicion_de_pago' => $datos->condicion_de_pago,
+        'tipo_de_proveedor' => $datos->tipo_de_proveedor,
+        'descripcion' => $datos->descripcion,
+        'rut' => $datos->rut,
+        'telefono_contacto' => $datos->telefono_contacto,
+        'correo_contacto' => $datos->correo_contacto,
+        'direccion' => $datos->direccion,
+        'criticidad' => $datos->criticidad
     );
     $api -> modificarApi($item);
 ?>
