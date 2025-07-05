@@ -9,23 +9,23 @@ class Sql extends DB
   function listarHerramientas()
   {
     try {
-      $query = $this->connect()->prepare("
-            SELECT pro.idproveedor,
-                  com.descripcion AS comuna,
-                   cdp.descripcion AS condicion_de_pago,
-                   tdp.descripcion AS tipo_de_proveedor,
-                   pro.descripcion,
-                   pro.rut,
-                   pro.telefono_contacto,
-                   pro.correo_contacto,
-                   pro.direccion,
-                   pro.criticidad
-            FROM proveedor pro
-            JOIN comuna com ON com.idcomuna = pro.comuna
-            JOIN condicion_de_pago cdp ON cdp.idcondicion_de_pago = pro.condicion_de_pago 
-            JOIN tipo_de_proveedor tdp ON tdp.idtipo_de_proveedor = pro.tipo_de_proveedor
-            WHERE pro.estado = 'activo'
-        ");
+      $query = $this->connect()->prepare("SELECT pro.idproveedor,
+          com.descripcion AS comuna,
+          cdp.descripcion AS condicion_de_pago,
+          tdp.descripcion AS tipo_de_proveedor,
+          pro.descripcion,
+          pro.rut,
+          pro.telefono_contacto,
+          pro.correo_contacto,
+          pro.direccion,
+          pro.criticidad,
+          cri.descripcion AS criticidad
+          FROM proveedor pro
+          JOIN comuna com ON com.idcomuna = pro.comuna
+          JOIN condicion_de_pago cdp ON cdp.idcondicion_de_pago = pro.condicion_de_pago
+          JOIN tipo_de_proveedor tdp ON tdp.idtipo_de_proveedor = pro.tipo_de_proveedor
+          JOIN criticidad cri ON cri.idcriticidad = pro.criticidad
+          WHERE pro.estado = 'activo'");
       $query->execute();
       return $query->fetchAll();
     } catch (PDOException $e) {
