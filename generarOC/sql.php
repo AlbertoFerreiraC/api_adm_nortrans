@@ -122,7 +122,8 @@ class Sql extends DB
       $query = $this->connect()->prepare("
             UPDATE generar_oc 
             SET estado = 'rechazado',
-                observacion_aprueba = :comentario
+                observacion_aprueba = :comentario,
+                fecha_aprobacion = NOW()
             WHERE idgenerar_oc = :id
               AND estado = 'activo'
         ");
