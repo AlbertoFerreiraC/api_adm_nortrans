@@ -15,17 +15,18 @@ class ApiControlador
                 $item = array(
                     'id' => $valor['idgenerar_oc'],
                     'fecha_creacion' => $valor['fecha_creacion'],
-                    'nro_oc' => $valor['nro_oc'],
-                    'proveedor' => $valor['proveedor'],
-                    'solicitud_ms' => $valor['solicitud_ms'],
-                    'doc_proveedor' => $valor['doc_proveedor'],
+                    'fecha_pre_aprobacion' => $valor['fecha_pre_aprobacion'],
+                    'fecha_aprobacion' => $valor['fecha_aprobacion'],
                     'empresa' => $valor['empresa'],
-                    'plazo_entrega' => $valor['plazo_entrega'],
-                    'tipo_doc_compra' => $valor['tipo_doc_compra'],
+                    'proveedor' => $valor['proveedor'],
+                    'doc_proveedor' => $valor['doc_proveedor'],
                     'plazo_oc' => $valor['plazo_oc'],
                     'pago_oc' => $valor['pago_oc'],
                     'pre_aprueba' => $valor['pre_aprueba'],
+                    'tipo_oc' => $valor['tipo_oc'],
                     'num_doc_proveedor' => $valor['num_doc_proveedor'],
+                    'plazo_entrega' => $valor['plazo_entrega'],
+                    'tipo_documento_compra' => $valor['tipo_documento_compra'],
                     'sub_total' => $valor['sub_total'],
                     'descuento_total' => $valor['descuento_total'],
                     'exento_total' => $valor['exento_total'],
@@ -33,6 +34,7 @@ class ApiControlador
                     'iva_total' => $valor['iva_total'],
                     'retencion_total' => $valor['retencion_total'],
                     'total_general' => $valor['total_general'],
+                    'observacion_aprueba' => $valor['observacion_aprueba'],
                     'estado' => $valor['estado']
                 );
                 array_push($listaArr, $item);
@@ -151,6 +153,25 @@ class ApiControlador
             exito("nok");
         }
     }
+
+
+    function rechazarApi($array)
+    {
+        $clasificacion = new Sql();
+
+        if (!isset($array['id']) || empty($array['id'])) {
+            exito("nok");
+            return;
+        }
+
+        $editar = $clasificacion->rechazar($array);
+        if ($editar == "ok") {
+            exito("ok");
+        } else {
+            exito("nok");
+        }
+    }
+
 
     function eliminarApi($array)
     {

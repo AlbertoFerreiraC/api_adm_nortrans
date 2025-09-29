@@ -96,11 +96,41 @@ class Sql extends DB
   function aprobar($item)
   {
     try {
-      $query = $this->connect()->prepare("UPDATE generar_oc SET estado = 'aprobado' WHERE idcontratacion = :id AND estado = 'pre_aprobado'");
-      $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+      $query = $this->connect()->prepare("
+            UPDATE generar_oc 
+            SET estado = 'aprobado',
+                observacion_aprueba = :comentario,
+                fecha_aprobacion = NOW()
+            WHERE idgenerar_oc = :id AND estado = 'activo'
+        ");
+      $query->bindParam(":id", $item['id'], PDO::PARAM_INT);
+      $query->bindParam(":comentario", $item['comentario'], PDO::PARAM_STR);
 
       if ($query->execute()) {
         return "ok";
+      } else {
+        return "nok";
+      }
+    } catch (PDOException $e) {
+      return "nok";
+    }
+  }
+
+  function rechazar($item)
+  {
+    try {
+      $query = $this->connect()->prepare("
+            UPDATE generar_oc 
+            SET estado = 'rechazado',
+                observacion_aprueba = :comentario
+            WHERE idgenerar_oc = :id
+              AND estado = 'activo'
+        ");
+      $query->bindParam(":id", $item['id'], PDO::PARAM_INT);
+      $query->bindParam(":comentario", $item['comentario'], PDO::PARAM_STR);
+
+      if ($query->execute()) {
+        return $query->rowCount() > 0 ? "ok" : "nok";
       } else {
         return "nok";
       }
