@@ -1,0 +1,99 @@
+
+===> Entrando a listarReportes()
+❌ Error listarReportes: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adm_nortrans.de_maquina' doesn't exist
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a eliminar()
+Datos recibidos:
+{"id":"18"}
+🗑️ Detalles eliminados del reporte ID: 18
+🗑️ Cabecera de reporte eliminada ID: 18
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a agregarCabecera()
+Datos recibidos:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1200","fecha":"2025-10-21 21:21:12","estado":"activo"}
+✅ CABECERA insertada correctamente. ID generado: 19
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a agregarCabecera()
+Datos recibidos:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1","fecha":"2025-10-21 21:28:44","estado":"activo"}
+✅ CABECERA insertada correctamente. ID generado: 20
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a agregarCabecera()
+Datos recibidos:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":5,"km_reportado":"11","fecha":"2025-10-21 21:31:57","estado":"activo"}
+✅ CABECERA insertada correctamente. ID generado: 21
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a eliminar()
+Datos recibidos:
+{"id":"19"}
+🗑️ Detalles eliminados del reporte ID: 19
+🗑️ Cabecera de reporte eliminada ID: 19
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a eliminar()
+Datos recibidos:
+{"id":"21"}
+🗑️ Detalles eliminados del reporte ID: 21
+🗑️ Cabecera de reporte eliminada ID: 21
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente
+
+===> Entrando a listarReportes()
+✅ Consulta listarReportes ejecutada correctamente

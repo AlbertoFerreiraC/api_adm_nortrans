@@ -1,0 +1,42 @@
+
+===> Entrando a agregarDetalleApi()
+ID REPORTE: 19
+DETALLES:
+[{"sistema":"3","sub_sistema":"2","observacion":"pruebas"}]
+➡️ Insertando detalle:
+{"reporte_falla":19,"sistema_maquina":3,"sub_sistema_maquina":2,"observacion":"pruebas"}
+
+===> Entrando a agregarDetalle()
+📝 Ejecutando INSERT con datos:
+{"reporte_falla":19,"sistema_maquina":3,"sub_sistema_maquina":2,"observacion":"pruebas"}
+✅ DETALLE insertado correctamente
+↪️ Resultado insertar detalle: ok
+✅ Resultado final agregarDetalleApi(): ok
+
+===> Entrando a agregarDetalleApi()
+ID REPORTE: 20
+DETALLES:
+[{"sistema":"3","sub_sistema":"1","observacion":"a"}]
+➡️ Insertando detalle:
+{"reporte_falla":20,"sistema_maquina":3,"sub_sistema_maquina":1,"observacion":"a"}
+
+===> Entrando a agregarDetalle()
+📝 Ejecutando INSERT con datos:
+{"reporte_falla":20,"sistema_maquina":3,"sub_sistema_maquina":1,"observacion":"a"}
+✅ DETALLE insertado correctamente
+↪️ Resultado insertar detalle: ok
+✅ Resultado final agregarDetalleApi(): ok
+
+===> Entrando a agregarDetalleApi()
+ID REPORTE: 21
+DETALLES:
+[{"sistema":"3","sub_sistema":"1","observacion":"a"}]
+➡️ Insertando detalle:
+{"reporte_falla":21,"sistema_maquina":3,"sub_sistema_maquina":1,"observacion":"a"}
+
+===> Entrando a agregarDetalle()
+📝 Ejecutando INSERT con datos:
+{"reporte_falla":21,"sistema_maquina":3,"sub_sistema_maquina":1,"observacion":"a"}
+✅ DETALLE insertado correctamente
+↪️ Resultado insertar detalle: ok
+✅ Resultado final agregarDetalleApi(): ok

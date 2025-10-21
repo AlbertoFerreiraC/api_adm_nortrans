@@ -1,0 +1,170 @@
+===> Entrando a listarReporteApi()
+⚠️ No se encontraron reportes activos
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":18,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a eliminarApi()
+Datos recibidos ELIMINAR: {"id":"18"}
+✅ Eliminación exitosa del reporte
+✅ ÉXITO: ok
+===> Entrando a listarReporteApi()
+⚠️ No se encontraron reportes activos
+📦 OUTPUT JSON: []
+
+=============================
+📥 INICIO funAgregar.php
+=============================
+Datos RAW recibidos:
+{"usuario":"1","maquina":"1","conductor":"4","km_reportado":"1200","dependencia":1}
+📦 Datos preparados para insertar CABECERA:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1200","fecha":"2025-10-21 21:21:12","estado":"activo"}
+===> Entrando a agregarApi()
+Datos recibidos CABECERA: {"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1200","fecha":"2025-10-21 21:21:12","estado":"activo"}
+Resultado insertar CABECERA → ID generado: 19
+💬 Respuesta desde controlador.agregarApi:
+{"mensaje":"ok","idreporte_falla":"19"}
+✅ Fin de ejecución funAgregar.php
+
+=============================
+📥 INICIO funAgregarDetalle.php
+=============================
+📨 Datos RAW recibidos en funAgregarDetalle:
+{"idreporte_falla":"19","detalle":[{"sistema":"3","sub_sistema":"2","observacion":"pruebas"}]}
+🧩 ID Reporte recibido: 19
+📦 Detalles recibidos:
+[
+    {
+        "sistema": "3",
+        "sub_sistema": "2",
+        "observacion": "pruebas"
+    }
+]
+💬 Resultado de agregarDetalleApi(): ok
+✅ Fin de ejecución funAgregarDetalle.php
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"}]
+
+=============================
+📥 INICIO funAgregar.php
+=============================
+Datos RAW recibidos:
+{"usuario":"1","maquina":"1","conductor":"4","km_reportado":"1","dependencia":1}
+📦 Datos preparados para insertar CABECERA:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1","fecha":"2025-10-21 21:28:44","estado":"activo"}
+===> Entrando a agregarApi()
+Datos recibidos CABECERA: {"usuario":1,"dependencia":1,"maquina":1,"conductor":4,"km_reportado":"1","fecha":"2025-10-21 21:28:44","estado":"activo"}
+Resultado insertar CABECERA → ID generado: 20
+💬 Respuesta desde controlador.agregarApi:
+{"mensaje":"ok","idreporte_falla":"20"}
+✅ Fin de ejecución funAgregar.php
+
+=============================
+📥 INICIO funAgregarDetalle.php
+=============================
+📨 Datos RAW recibidos en funAgregarDetalle:
+{"idreporte_falla":"20","detalle":[{"sistema":"3","sub_sistema":"1","observacion":"a"}]}
+🧩 ID Reporte recibido: 20
+📦 Detalles recibidos:
+[
+    {
+        "sistema": "3",
+        "sub_sistema": "1",
+        "observacion": "a"
+    }
+]
+💬 Resultado de agregarDetalleApi(): ok
+✅ Fin de ejecución funAgregarDetalle.php
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 2 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"},{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 2 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"},{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+
+=============================
+📥 INICIO funAgregar.php
+=============================
+Datos RAW recibidos:
+{"usuario":"1","maquina":"1","conductor":"5","km_reportado":"11","dependencia":1}
+📦 Datos preparados para insertar CABECERA:
+{"usuario":1,"dependencia":1,"maquina":1,"conductor":5,"km_reportado":"11","fecha":"2025-10-21 21:31:57","estado":"activo"}
+===> Entrando a agregarApi()
+Datos recibidos CABECERA: {"usuario":1,"dependencia":1,"maquina":1,"conductor":5,"km_reportado":"11","fecha":"2025-10-21 21:31:57","estado":"activo"}
+Resultado insertar CABECERA → ID generado: 21
+💬 Respuesta desde controlador.agregarApi:
+{"mensaje":"ok","idreporte_falla":"21"}
+✅ Fin de ejecución funAgregar.php
+
+=============================
+📥 INICIO funAgregarDetalle.php
+=============================
+📨 Datos RAW recibidos en funAgregarDetalle:
+{"idreporte_falla":"21","detalle":[{"sistema":"3","sub_sistema":"1","observacion":"a"}]}
+🧩 ID Reporte recibido: 21
+📦 Detalles recibidos:
+[
+    {
+        "sistema": "3",
+        "sub_sistema": "1",
+        "observacion": "a"
+    }
+]
+💬 Resultado de agregarDetalleApi(): ok
+✅ Fin de ejecución funAgregarDetalle.php
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 3 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":19,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1200,"fecha":"2025-10-21","estado":"activo"},{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"},{"idreporte_falla":21,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Alberto","km_reportado":11,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a eliminarApi()
+Datos recibidos ELIMINAR: {"id":"19"}
+✅ Eliminación exitosa del reporte
+✅ ÉXITO: ok
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 2 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"},{"idreporte_falla":21,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Alberto","km_reportado":11,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a eliminarApi()
+Datos recibidos ELIMINAR: {"id":"21"}
+✅ Eliminación exitosa del reporte
+✅ ÉXITO: ok
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
