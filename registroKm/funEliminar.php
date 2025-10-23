@@ -6,7 +6,7 @@ $datosRecibidos = file_get_contents("php://input");
 $datos = json_decode($datosRecibidos);
 
 $item = array(
-    'idmaquina' => $datos->idmaquina
+    'idregistro_km' => $datos->idregistro_km
 );
 
-$api->obtenerDatosParaModificarApi($item);
+$api->eliminarApi($item);

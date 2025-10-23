@@ -11,21 +11,21 @@ class ApiControlador
         $lista = $clasificacion->listarHerramientas();
         $listaArr = array();
         if (!empty($lista)) {
-            foreach ($lista as $clave => $valor) {
+            foreach ($lista as $valor) {
                 $item = array(
-                    'id' => $valor['idmaquina'],
-                    'centro_de_costo' => $valor['centro_de_costo'],
-                    'tipo_bus' => $valor['tipo_bus'],
-                    'descripcion' => $valor['descripcion'],
-                    'km_anterior' => $valor['km_anterior'],
-                    'fecha_km' => $valor['fecha_km'],
-                    'km_actual' => $valor['km_actual']
+                    'idregistro_km'     => $valor['idregistro_km'],
+                    'centro_de_costo'   => $valor['centro_de_costo'],
+                    'tipo_bus'          => $valor['tipo_bus'],
+                    'maquina'           => $valor['maquina'],
+                    'descripcion'       => $valor['descripcion'],
+                    'km_anterior'       => $valor['km_anterior'],
+                    'fecha_km'          => $valor['fecha_km'],
+                    'km_actual'         => $valor['km_actual']
                 );
                 array_push($listaArr, $item);
             }
             printJSON($listaArr);
         } else {
-            //error("error");
             header("HTTP/1.1 401 Unauthorized");
         }
     }
@@ -33,27 +33,35 @@ class ApiControlador
     function agregarApi($array)
     {
         $clasificacion = new Sql();
-        //********************************************************************    
-        $verificarExistencia = $clasificacion->verificar_existencia($array);
-        if (empty($verificarExistencia)) {
+
+        // Verificar último registro de la máquina
+        $ultimoRegistro = $clasificacion->verificar_existencia($array);
+
+        if (empty($ultimoRegistro) || $array['km_actual'] > $ultimoRegistro['km_actual']) {
+            // Permitir guardar si no hay registros previos o si el nuevo km es mayor
             $datos = array(
                 'centro_de_costo' => $array['centro_de_costo'],
-                'tipo_bus' => $array['tipo_bus'],
-                'descripcion' => $array['descripcion'],
-                'km_anterior' => $array['km_anterior'],
-                'fecha_km' => $array['fecha_km'],
-                'km_actual' => $array['km_actual'],
+                'tipo_bus'        => $array['tipo_bus'],
+                'maquina'         => $array['maquina'],
+                'descripcion'     => $array['descripcion'],
+                'km_anterior'     => $array['km_anterior'],
+                'fecha_km'        => $array['fecha_km'],
+                'km_actual'       => $array['km_actual']
             );
+
             $guardar = $clasificacion->agregar($datos);
+
             if ($guardar == "ok") {
                 exito("ok");
             } else {
                 exito("nok");
             }
         } else {
-            error("registro_existente");
+            // Si el nuevo km es menor o igual, rechazar
+            exito("menor_o_igual");
         }
     }
+
 
     function obtenerDatosParaModificarApi($array)
     {
@@ -64,12 +72,14 @@ class ApiControlador
         if (!empty($lista)) {
             foreach ($lista as $valor) {
                 $item = array(
-                    'idmaquina'       => $valor['idmaquina'],
-                    'centro_de_costo' => $valor['centro_de_costo'],
-                    'tipo_bus'        => $valor['tipo_bus'],
-                    'descripcion'     => $valor['descripcion'],
-                    'km_actual'       => $valor['km_actual'],
-                    'fecha_km'        => $valor['fecha_km']
+                    'idregistro_km'     => $valor['idregistro_km'],
+                    'centro_de_costo'   => $valor['centro_de_costo'],
+                    'tipo_bus'          => $valor['tipo_bus'],
+                    'maquina'           => $valor['maquina'],
+                    'descripcion'       => $valor['descripcion'],
+                    'km_anterior'       => $valor['km_anterior'],
+                    'km_actual'         => $valor['km_actual'],
+                    'fecha_km'          => $valor['fecha_km']
                 );
                 array_push($listaArr, $item);
             }
@@ -80,21 +90,21 @@ class ApiControlador
         }
     }
 
-
     function modificarApi($array)
     {
         $clasificacion = new Sql();
-
         $verificarExistencia = $clasificacion->verificar_existencia($array);
+
         if (empty($verificarExistencia)) {
             $datos = array(
                 'centro_de_costo' => $array['centro_de_costo'],
                 'tipo_bus'        => $array['tipo_bus'],
+                'maquina'         => $array['maquina'],
                 'descripcion'     => $array['descripcion'],
                 'km_anterior'     => $array['km_anterior'],
                 'fecha_km'        => $array['fecha_km'],
                 'km_actual'       => $array['km_actual'],
-                'idmaquina'       => $array['idmaquina']
+                'idregistro_km'   => $array['idregistro_km']
             );
             $editar = $clasificacion->modificar($datos);
             if ($editar == "ok") {
@@ -103,10 +113,10 @@ class ApiControlador
                 exito("nok");
             }
         } else {
-            $idRecogido = $verificarExistencia[0]['idmaquina'];
-            $idParaModificar = $array['idmaquina'];
+            $idRecogido = $verificarExistencia[0]['idregistro_km'];
+            $idParaModificar = $array['idregistro_km'];
             if ($idRecogido != $idParaModificar) {
-                exito("repetido");
+                exito("duplicado");
             } else {
                 $editar = $clasificacion->modificar($array);
                 if ($editar == "ok") {
@@ -121,7 +131,6 @@ class ApiControlador
     function eliminarApi($array)
     {
         $clasificacion = new Sql();
-        //********************************************************************    
         $eliminar = $clasificacion->eliminar($array);
         if ($eliminar == "ok") {
             exito("ok");
@@ -129,7 +138,7 @@ class ApiControlador
             exito("nok");
         }
     }
-} //FIN API SESIONES
+} // FIN CLASE
 
 function error($mensaje)
 {

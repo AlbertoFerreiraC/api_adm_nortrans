@@ -168,3 +168,15 @@ Datos recibidos ELIMINAR: {"id":"21"}
 ===> Entrando a listarReporteApi()
 ✅ Se obtuvieron 1 registros de reporte_falla
 📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
+===> Entrando a listarReporteApi()
+✅ Se obtuvieron 1 registros de reporte_falla
+📦 OUTPUT JSON: [{"idreporte_falla":20,"usuario":1,"dependencia":1,"maquina":"mAQUINA 1","conductor":"Pedro","km_reportado":1,"fecha":"2025-10-21","estado":"activo"}]
