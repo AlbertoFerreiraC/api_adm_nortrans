@@ -91,7 +91,7 @@ class Sql extends DB
     $query->bindParam(":remuneracion", $item['remuneracion'], PDO::PARAM_STR);
     $query->bindParam(":motivo", $item['motivo'], PDO::PARAM_STR);
     $query->bindParam(":tipo_contrato", $item['tipo_contrato'], PDO::PARAM_STR);
-    $query->bindParam(":comentario_general", $item['comentarioGeneral'], PDO::PARAM_STR);
+    $query->bindParam(":comentario_general", $item['comentario_general'], PDO::PARAM_STR);
     if ($query->execute()) {
       return "ok";
     } else {

@@ -5,7 +5,8 @@ include_once 'sql.php';
 class ApiControlador
 {
 
-    function listarHerramientasApi(){
+    function listarHerramientasApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarHerramientas();
         $listaArr = array();
@@ -30,9 +31,6 @@ class ApiControlador
                     'remuneracion' => $valor['remuneracion'],
                     'comentario_general' => $valor['comentario_general'],
                     'estado' => 'activo',
-                    'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
-                    'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
-                    'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
                     'cantidad_contratada' => $valor['cantidad_contratada'],
                     'usuario' => $valor['usuario'],
                     'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
@@ -46,7 +44,8 @@ class ApiControlador
         }
     }
 
-    function listarRequisitoContratacionApi(){
+    function listarRequisitoContratacionApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarRequisitoContratacion();
         $listaArr = array();
@@ -101,11 +100,11 @@ class ApiControlador
             $guardar = $clasificacion->agregar($array);
             if ($guardar == "ok") {
                 $idGenerado = $clasificacion->obtenerID();
-                foreach ($array['tabla']as $clave => $valor) {
-                    $datosDetalle = array( 
-                        'contratacion'=> $idGenerado[0]['id'],
-                        'requisito'=> $valor->requisito,
-                        'observacion'=> $valor->observacion
+                foreach ($array['tabla'] as $clave => $valor) {
+                    $datosDetalle = array(
+                        'contratacion' => $idGenerado[0]['id'],
+                        'requisito' => $valor->requisito,
+                        'observacion' => $valor->observacion
                     );
                     //printJSON($datosDetalle);
                     $clasificacion->agregarDetalle($datosDetalle);
@@ -113,7 +112,7 @@ class ApiControlador
                 exito("ok");
             } else {
                 exito("nok");
-              //  return printJSON($guardar);
+                //  return printJSON($guardar);
             }
         }
     }
@@ -125,37 +124,43 @@ class ApiControlador
         $listaArr = array();
         if (!empty($lista)) {
             foreach ($lista as $clave => $valor) {
+
+                // 🔹 Eliminamos los valores nulos, vacíos o con cadena "null"
+                $filtrado = array_filter($valor, function ($v) {
+                    return !is_null($v) && $v !== '' && strtolower($v) !== 'null';
+                });
+
+                // 🔹 Renombramos las claves según tu estructura original (solo si existen)
                 $item = array(
-                    'idcontratacion' => $valor['idcontratacion'],
-                    'cargo' => $valor['cargo'],
-                    'empresa' => $valor['empresa'],
-                    'division' => $valor['division'],
-                    'centroDeCosto' => $valor['centro_de_costo'],
-                    'turnosLaborales' => $valor['turnos_laborales'],
-                    'tipoBus' => $valor['tipo_bus'],
-                    'preaprueba' => $valor['pre_aprueba'],
-                    'aprueba' => $valor['aprueba'],
-                    'motivo' => $valor['motivo'],
-                    'cantidad_solicitada' => $valor['cantidad_solicitada'],
-                    'licenciaDeConducir' => $valor['licencia_de_conducir'],
-                    'tipo_contrato' => $valor['tipo_contrato'],
-                    'fecha_requerida' => $valor['fecha_requerida'],
-                    'fecha_termino' => $valor['fecha_termino'],
-                    'remuneracion' => $valor['remuneracion'],
-                    'comentario_general' => $valor['comentario_general'],
-                    'aprueba' => $valor['aprueba'],
-                    'pre_aprueba' => $valor['pre_aprueba'],
-                    'observacionEntrevistaPsicolaboral' => $valor['entrevista_psicolaboral'],
-                    'observacionEntrevistaTecnica' => $valor['entrevista_tecnica'],
-                    'observacionPruebaConduccion' => $valor['entrevista_conduccion'],
-                    'observacion_pre_aprobacion' => $valor['observacion_pre_aprobacion'],
-                    'fecha_pre_aperobacion' => $valor['fecha_pre_aperobacion'],
-                    'fecha_aprobacion' => $valor['fecha_aprobacion'],
-                    'observacion_aprobacion' => $valor['observacion_aprobacion'],
-                    'cantidad_contratada' => $valor['cantidad_contratada'],
-                    'usuario' => $valor['usuario'],
-                    'fecha_inicio_laboral' => $valor['fecha_inicio_laboral']
+                    'idcontratacion' => $filtrado['idcontratacion'] ?? null,
+                    'cargo' => $filtrado['cargo'] ?? null,
+                    'empresa' => $filtrado['empresa'] ?? null,
+                    'division' => $filtrado['division'] ?? null,
+                    'centroDeCosto' => $filtrado['centro_de_costo'] ?? null,
+                    'turnosLaborales' => $filtrado['turnos_laborales'] ?? null,
+                    'tipoBus' => $filtrado['tipo_bus'] ?? null,
+                    'preaprueba' => $filtrado['pre_aprueba'] ?? null,
+                    'aprueba' => $filtrado['aprueba'] ?? null,
+                    'motivo' => $filtrado['motivo'] ?? null,
+                    'cantidad_solicitada' => $filtrado['cantidad_solicitada'] ?? null,
+                    'licenciaDeConducir' => $filtrado['licencia_de_conducir'] ?? null,
+                    'tipo_contrato' => $filtrado['tipo_contrato'] ?? null,
+                    'fecha_requerida' => $filtrado['fecha_requerida'] ?? null,
+                    'fecha_termino' => $filtrado['fecha_termino'] ?? null,
+                    'remuneracion' => $filtrado['remuneracion'] ?? null,
+                    'comentario_general' => $filtrado['comentario_general'] ?? null,
+                    'observacion_pre_aprobacion' => $filtrado['observacion_pre_aprobacion'] ?? null,
+                    'fecha_pre_aperobacion' => $filtrado['fecha_pre_aperobacion'] ?? null,
+                    'fecha_aprobacion' => $filtrado['fecha_aprobacion'] ?? null,
+                    'observacion_aprobacion' => $filtrado['observacion_aprobacion'] ?? null,
+                    'cantidad_contratada' => $filtrado['cantidad_contratada'] ?? null,
+                    'usuario' => $filtrado['usuario'] ?? null,
+                    'fecha_inicio_laboral' => $filtrado['fecha_inicio_laboral'] ?? null
                 );
+
+                // 🔹 Eliminamos del item final los valores null
+                $item = array_filter($item, fn($v) => !is_null($v) && $v !== '' && strtolower($v) !== 'null');
+
                 array_push($listaArr, $item);
             }
             printJSON($listaArr);
@@ -165,7 +170,8 @@ class ApiControlador
         }
     }
 
-    function listarRequisitosPorContratacion($array){
+    function listarRequisitosPorContratacion($array)
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarRequisitos($array);
         $listaArr = array();
@@ -247,7 +253,8 @@ class ApiControlador
         }
     }
 
-    function listarDatosContratoPorConfirmarApi($array){
+    function listarDatosContratoPorConfirmarApi($array)
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarDatosContratoPorConfirmar($array);
         $listaArr = array();
