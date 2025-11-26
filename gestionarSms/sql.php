@@ -281,6 +281,21 @@ class Sql extends DB
     }
   }
 
+  function controlVistaDetalleSms($item){
+    $query = $this->connect()->prepare("SELECT det.*
+        FROM detalle_oc det
+        JOIN generar_oc gen ON gen.idgenerar_oc = det.generar_oc
+        WHERE gen.estado NOT IN ('anulado', 'rechazado')
+          AND det.detalle_sms = :idDetalle
+          AND det.estado = 'ACTIVO'");
+    $query->bindParam(":idDetalle", $item['idDetalle'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
+    }
+  }
+
 
 
  

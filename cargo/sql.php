@@ -18,9 +18,26 @@ class Sql extends DB
 
   function verificar_existencia($item)
   {
-    $query = $this->connect()->prepare("select * from cargo where estado = 'activo' and 
-        descripcion = :descripcion");
+    if (isset($item['id'])) {
+      // VERIFICAR EN MODIFICACIÓN
+      $query = $this->connect()->prepare("
+            SELECT * FROM cargo 
+            WHERE estado = 'activo' 
+              AND descripcion = :descripcion
+              AND idcargo != :id
+        ");
+      $query->bindParam(":id", $item['id'], PDO::PARAM_INT);
+    } else {
+      // VERIFICAR EN AGREGAR
+      $query = $this->connect()->prepare("
+            SELECT * FROM cargo 
+            WHERE estado = 'activo' 
+              AND descripcion = :descripcion
+        ");
+    }
+
     $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
+
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
@@ -28,10 +45,12 @@ class Sql extends DB
     }
   }
 
+
   function agregar($item)
   {
-    $query = $this->connect()->prepare("insert cargo(descripcion,estado) values(:descripcion,'activo')");
+    $query = $this->connect()->prepare("insert cargo(descripcion,dependencia,estado) values(:descripcion,:dependencia,'activo')");
     $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
+    $query->bindParam(":dependencia", $item['dependencia'], PDO::PARAM_STR);
     if ($query->execute()) {
       return "ok";
     } else {
@@ -53,8 +72,9 @@ class Sql extends DB
 
   function modificar($item)
   {
-    $query = $this->connect()->prepare("update cargo set descripcion = :descripcion where idcargo = :id and estado = 'activo'");
+    $query = $this->connect()->prepare("update cargo set descripcion = :descripcion, dependencia = :dependencia where idcargo = :id and estado = 'activo'");
     $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
+    $query->bindParam(":dependencia", $item['dependencia'], PDO::PARAM_STR);
     $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
     if ($query->execute()) {
       return "ok";

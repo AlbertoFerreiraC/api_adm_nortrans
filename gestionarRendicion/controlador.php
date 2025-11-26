@@ -314,6 +314,17 @@ class ApiControlador{
                 } 
     }
 
+    function consultarNroDocumentoApi($array){
+        $clasificacion = new Sql();
+        $lista = $clasificacion->consultarNroFactura($array);      
+        $listaArr = array();
+        if(empty($lista)){
+            exito("ok");
+        }else{
+            exito("nok");
+        }
+    } 
+
 } //FIN API SESIONES
 
     function error($mensaje){

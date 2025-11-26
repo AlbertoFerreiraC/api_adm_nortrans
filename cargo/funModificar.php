@@ -5,7 +5,8 @@
     $datos = json_decode($datosRecibidos);
     $item = array(
         'id' => $datos->id,
-        'descripcion' => $datos->descripcion
+        'descripcion' => $datos->descripcion,
+        'dependencia' => $datos->dependencia
     );
     $api -> modificarApi($item);
 ?>

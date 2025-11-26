@@ -125,12 +125,10 @@ class ApiControlador
         if (!empty($lista)) {
             foreach ($lista as $clave => $valor) {
 
-                // 🔹 Eliminamos los valores nulos, vacíos o con cadena "null"
                 $filtrado = array_filter($valor, function ($v) {
                     return !is_null($v) && $v !== '' && strtolower($v) !== 'null';
                 });
 
-                // 🔹 Renombramos las claves según tu estructura original (solo si existen)
                 $item = array(
                     'idcontratacion' => $filtrado['idcontratacion'] ?? null,
                     'cargo' => $filtrado['cargo'] ?? null,
@@ -155,10 +153,9 @@ class ApiControlador
                     'observacion_aprobacion' => $filtrado['observacion_aprobacion'] ?? null,
                     'cantidad_contratada' => $filtrado['cantidad_contratada'] ?? null,
                     'usuario' => $filtrado['usuario'] ?? null,
-                    'fecha_inicio_laboral' => $filtrado['fecha_inicio_laboral'] ?? null
+                    'fecha_inicio_laboral' => $filtrado['fecha_inicio_laboral'] ?? null,
                 );
 
-                // 🔹 Eliminamos del item final los valores null
                 $item = array_filter($item, fn($v) => !is_null($v) && $v !== '' && strtolower($v) !== 'null');
 
                 array_push($listaArr, $item);

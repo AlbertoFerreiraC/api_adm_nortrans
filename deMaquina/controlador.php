@@ -14,6 +14,18 @@ class ApiControlador
             foreach ($lista as $valor) {
                 $item = array(
                     'idmaquina' => $valor['idmaquina'],
+                    'nro_chasis' => $valor['nro_chasis'],
+                    'tipo_documento_maquina' => $valor['tipo_documento_maquina'],
+                    'tipo_equipamiento_maquina' => $valor['tipo_equipamiento_maquina'],
+                    'tipo_poliza_seguro' => $valor['tipo_poliza_seguro'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'clase_bus' => $valor['clase_bus'],
+                    'tipo_piso_bus' => $valor['tipo_piso_bus'],
+                    'marca_carroceria' => $valor['marca_carroceria'],
+                    'modelo_carroceria' => $valor['modelo_carroceria'],
+                    'modelo_chasis' => $valor['modelo_chasis'],
+                    'marca_chasis' => $valor['marca_chasis'],
+                    'tipo_patente' => $valor['tipo_patente'],
                     'patente' => $valor['patente'],
                     'numero_interno_maquina' => $valor['numero_interno_maquina'],
                     'anho_maquina' => $valor['anho_maquina'],
@@ -21,8 +33,16 @@ class ApiControlador
                     'secuencia_mantenimiento' => $valor['secuencia_mantenimiento'],
                     'numero_asientos' => $valor['numero_asientos'],
                     'numero_puertas' => $valor['numero_puertas'],
-                    'centro_de_costo' => $valor['centro_de_costo'],
-                    'padron' => $valor['padron']
+                    'padron' => $valor['padron'],
+                    'numero_motor' => $valor['numero_motor'],
+                    'numero_carroceria' => $valor['numero_carroceria'],
+                    'tipo_compra' => $valor['tipo_compra'],
+                    'propietario' => $valor['propietario'],
+                    'proveedor' => $valor['proveedor'],
+                    'nro_operacion' => $valor['nro_operacion'],
+                    'fecha_inicio' => $valor['fecha_inicio'],
+                    'numero_cuota' => $valor['numero_cuota'],
+                    'estado' => $valor['estado']
                 );
                 array_push($listaArr, $item);
             }
@@ -57,6 +77,18 @@ class ApiControlador
             foreach ($lista as $valor) {
                 $item = array(
                     'idmaquina' => $valor['idmaquina'],
+                    'nro_chasis' => $valor['nro_chasis'],
+                    'tipo_documento_maquina' => $valor['tipo_documento_maquina'],
+                    'tipo_equipamiento_maquina' => $valor['tipo_equipamiento_maquina'],
+                    'tipo_poliza_seguro' => $valor['tipo_poliza_seguro'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'clase_bus' => $valor['clase_bus'],
+                    'tipo_piso_bus' => $valor['tipo_piso_bus'],
+                    'marca_carroceria' => $valor['marca_carroceria'],
+                    'modelo_carroceria' => $valor['modelo_carroceria'],
+                    'modelo_chasis' => $valor['modelo_chasis'],
+                    'marca_chasis' => $valor['marca_chasis'],
+                    'tipo_patente' => $valor['tipo_patente'],
                     'patente' => $valor['patente'],
                     'numero_interno_maquina' => $valor['numero_interno_maquina'],
                     'anho_maquina' => $valor['anho_maquina'],
@@ -64,8 +96,16 @@ class ApiControlador
                     'secuencia_mantenimiento' => $valor['secuencia_mantenimiento'],
                     'numero_asientos' => $valor['numero_asientos'],
                     'numero_puertas' => $valor['numero_puertas'],
-                    'centro_de_costo' => $valor['centro_de_costo'],
-                    'padron' => $valor['padron']
+                    'padron' => $valor['padron'],
+                    'numero_motor' => $valor['numero_motor'],
+                    'numero_carroceria' => $valor['numero_carroceria'],
+                    'tipo_compra' => $valor['tipo_compra'],
+                    'propietario' => $valor['propietario'],
+                    'proveedor' => $valor['proveedor'],
+                    'nro_operacion' => $valor['nro_operacion'],
+                    'fecha_inicio' => $valor['fecha_inicio'],
+                    'numero_cuota' => $valor['numero_cuota'],
+                    'estado' => $valor['estado']
                 );
                 array_push($listaArr, $item);
             }

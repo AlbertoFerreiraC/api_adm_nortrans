@@ -8,7 +8,7 @@ class Sql extends DB
 
   function listarHerramientas()
   {
-    $query = $this->connect()->prepare("select * from maquina where estado = 'activo'");
+    $query = $this->connect()->prepare("select * from de_maquina where estado = 'activo'");
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
@@ -28,26 +28,96 @@ class Sql extends DB
     }
   }
 
-  function agregar($item)
-  {
-    $query = $this->connect()->prepare("INSERT INTO maquina (patente, numero_interno_maquina, tipo_maquina, anho_maquina, capacidad_estanque, secuencia_mantenimiento, numero_asientos, numero_puertas, centro_de_costo, padron, estado VALUES (:patente, :numero_interno_maquina, :tipo_maquina, :anho_maquina, :capacidad_estanque, :secuencia_mantenimiento, :numero_asientos, :numero_puertas, :padron, 'activo');");
+function agregar($item)
+{
+    $centro = empty($item['centro_de_costo']) ? null : intval($item['centro_de_costo']);
 
-    $query->bindParam(":patente", $item['patente'], PDO::PARAM_STR);
-    $query->bindParam(":numero_interno_maquina", $item['numero_interno_maquina'], PDO::PARAM_STR);
-    $query->bindParam(":tipo_maquina", $item['tipo_maquina'], PDO::PARAM_STR);
-    $query->bindParam(":anho_maquina", $item['anho_maquina'], PDO::PARAM_STR);
-    $query->bindParam(":capacidad_estanque", $item['capacidad_estanque'], PDO::PARAM_STR);
-    $query->bindParam(":secuencia_mantenimiento", $item['secuencia_mantenimiento'], PDO::PARAM_STR);
-    $query->bindParam(":numero_asientos", $item['numero_asientos'], PDO::PARAM_STR);
-    $query->bindParam(":numero_puertas", $item['numero_puertas'], PDO::PARAM_STR);
-    $query->bindParam(":centro_de_costo", $item['centro_de_costo'], PDO::PARAM_STR);
-    $query->bindParam(":padron", $item['padron'], PDO::PARAM_STR);
+    $sql = "
+        INSERT INTO de_maquina
+        (
+          nro_chasis,
+          tipo_documento_maquina,
+          tipo_equipamiento_maquina,
+          tipo_poliza_seguro,
+          centro_de_costo,
+          clase_bus,
+          tipo_piso_bus,
+          marca_carroceria,
+          modelo_carroceria,
+          modelo_chasis,
+          marca_chasis,
+          tipo_patente,
+          patente,
+          numero_interno_maquina,
+          anho_maquina,
+          capacidad_estanque,
+          secuencia_mantenimiento,
+          numero_asientos,
+          numero_puertas,
+          padron,
+          numero_motor,
+          numero_carroceria,
+          tipo_compra,
+          propietario,
+          proveedor,
+          nro_operacion,
+          fecha_inicio,
+          numero_cuota,
+          estado
+        )
+        VALUES
+        (
+          NULL,
+          1,
+          1,
+          1,
+          :centro_de_costo,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          NULL,
+          :patente,
+          :numero_interno_maquina,
+          :anho_maquina,
+          :capacidad_estanque,
+          :secuencia_mantenimiento,
+          :numero_asientos,
+          :numero_puertas,
+          :padron,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          'activo'
+        );
+    ";
+
+    $query = $this->connect()->prepare($sql);
+
+    $query->bindValue(":centro_de_costo", $centro, $centro === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
+    $query->bindParam(":patente", $item['patente']);
+    $query->bindParam(":numero_interno_maquina", $item['numero_interno_maquina']);
+    $query->bindParam(":anho_maquina", $item['anho_maquina']);
+    $query->bindParam(":capacidad_estanque", $item['capacidad_estanque']);
+    $query->bindParam(":secuencia_mantenimiento", $item['secuencia_mantenimiento']);
+    $query->bindParam(":numero_asientos", $item['numero_asientos']);
+    $query->bindParam(":numero_puertas", $item['numero_puertas']);
+    $query->bindParam(":padron", $item['padron']);
+
     if ($query->execute()) {
-      return "ok";
+        return "ok";
     } else {
-      return $query;
+        return $query->errorInfo();
     }
-  }
+}
+
 
   function obtenerDatosParaModificar($item)
   {
@@ -85,7 +155,6 @@ class Sql extends DB
         fecha_aprobacion = :fecha_aprobacion,
         observacion_aprobacion = :observacion_aprobacion
     WHERE idcontratacion = :idcontratacion AND estado = 'activo';");
-
     $query->bindParam(":idcontratacion", $item['idcontratacion'], PDO::PARAM_INT);
     $query->bindParam(":cargo", $item['cargo'], PDO::PARAM_STR);
     $query->bindParam(":empresa", $item['empresa'], PDO::PARAM_STR);

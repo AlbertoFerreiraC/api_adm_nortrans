@@ -38,8 +38,8 @@ class Sql extends DB
   function verificar_existencia($item)
   {
     $query = $this->connect()->prepare("select * from proveedor where estado = 'activo' and 
-        descripcion = :descripcion");
-    $query->bindParam(":descripcion", $item['descripcion'], PDO::PARAM_STR);
+        rut = :rut");
+    $query->bindParam(":rut", $item['rut'], PDO::PARAM_STR);
     if ($query->execute()) {
       return $query->fetchAll();
     } else {

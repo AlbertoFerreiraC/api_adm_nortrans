@@ -233,6 +233,16 @@ class Sql extends DB{
     }
   }
 
+  function procesarSms($item){
+    $query = $this->connect()->prepare("update sms set estado = 'procesado' where idsms = :nroSms");
+    $query->bindParam(":nroSms", $item['nroSms'], PDO::PARAM_STR);
+    if ($query->execute()) {
+      return "ok";
+    } else {
+      return "nok";
+    }
+  }
+
   function aprobar($item)
   {
     try {

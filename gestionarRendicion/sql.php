@@ -244,6 +244,19 @@ class Sql extends DB{
         }
     }
 
+    function consultarNroFactura($item){
+      $query = $this->connect()->prepare("select det.* 
+        from detalle_rendicion det, rendiciones ren
+        where ren.estado <> 'anulado' and ren.idrendiciones = det.rendiciones and 
+        det.nro_documento = :nroDocumento");
+      $query->bindParam(":nroDocumento", $item['nroDocumento'], PDO::PARAM_STR);
+      if($query->execute()){
+        return $query->fetchAll();
+      }else{
+        return null;		
+      }
+    }
+
        
 }
 

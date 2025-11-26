@@ -80,6 +80,7 @@ class ApiControlador
                         'estado'=> $valor->estado
                     );
                     $clasificacion->agregarDetalle($datosDetalle);
+                 //   $clasificacion->procesarSms($datosDetalle);
                 }    
                 exito("ok");              
     }

@@ -168,7 +168,7 @@ class ApiControlador{
                             $clasificacion->agregarDetalleSinRepuesto($datosDetalle);
                         }
                     }
-                    exito("ok");
+                    exito($idSolicitud[0]['id']);
                 }else{
                     exito("nok");
                 }
@@ -229,20 +229,26 @@ class ApiControlador{
         $listaArr = array();
         if(!empty($lista)){
             foreach ($lista as $clave => $valor) {
-                $item = array(
+                $controlDatos = array(
                    'idDetalle'=> $valor['iddetalle_sms'],
-                   'centroDeCosto'=> $valor['centro_de_costo'],
-                   'repuestos'=> $valor['repuestos'],
-                   'insumos'=> $valor['insumos'],
-                   'tipo'=> $valor['tipo'],
-                   'unidad_de_medida'=> $valor['unidad_de_medida'],
-                   'cantidad'=> $valor['cantidad'],
-                   'aplicacion'=> $valor['aplicacion'],
-                   'nombreCentrDeCosto'=> $valor['nombre_centro_de_costo'],
-                   'descripcionRepuestos'=> $valor['descripcion_repuestos'],
-                   'descripcionInsumos'=> $valor['descripcion_insumos']
-               );
-               array_push($listaArr, $item);               
+                );   
+                $listaControl = $clasificacion->controlVistaDetalleSms($controlDatos);   
+                if(empty($listaControl)){
+                    $item = array(
+                        'idDetalle'=> $valor['iddetalle_sms'],
+                        'centroDeCosto'=> $valor['centro_de_costo'],
+                        'repuestos'=> $valor['repuestos'],
+                        'insumos'=> $valor['insumos'],
+                        'tipo'=> $valor['tipo'],
+                        'unidad_de_medida'=> $valor['unidad_de_medida'],
+                        'cantidad'=> $valor['cantidad'],
+                        'aplicacion'=> $valor['aplicacion'],
+                        'nombreCentrDeCosto'=> $valor['nombre_centro_de_costo'],
+                        'descripcionRepuestos'=> $valor['descripcion_repuestos'],
+                        'descripcionInsumos'=> $valor['descripcion_insumos']
+                    );
+                    array_push($listaArr, $item); 
+                }                              
            }
            printJSON($listaArr);
         }else{
