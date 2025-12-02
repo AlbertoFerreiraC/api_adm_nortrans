@@ -128,6 +128,31 @@ class ApiControlador
         }
     }
 
+    function listarAprobacionApi(){
+        $clasificacion = new Sql();
+        $lista = $clasificacion->listarAprueba();
+        $listaArr = array();
+        if (!empty($lista)) {
+            foreach ($lista as $clave => $valor) {
+                $item = array(
+                    'id' => $valor['idgenerar_oc'],
+                    'empresa' => $valor['empresa'],
+                    'fecha_creacion' => $valor['fecha_creacion'],
+                    'doc_proveedor' => $valor['doc_proveedor'],
+                    'proveedor' => $valor['proveedor'],
+                    'total_general' => $valor['total_general'],
+                    'pre_aprueba' => $valor['pre_aprueba'],
+                    'estado' => $valor['estado']
+                );
+                array_push($listaArr, $item);
+            }
+            printJSON($listaArr);
+        } else {
+            //error("error");
+            header("HTTP/1.1 401 Unauthorized");
+        }
+    }
+    
     function listarOCActivasApi(){
         $clasificacion = new Sql();
         $lista = $clasificacion->listarOCActivas();

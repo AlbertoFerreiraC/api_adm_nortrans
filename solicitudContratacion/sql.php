@@ -35,7 +35,8 @@ class Sql extends DB
         con.division,
         car.descripcion cargo,
         con.cantidad_solicitada,
-        con.cantidad_contratada
+        con.cantidad_contratada,
+        usu.nombre as usuario
         FROM contratacion con, usuario usu,cargo car, empresa em,
         usuario pre_aprueba, usuario aprueba
         WHERE con.estado = 'activo' AND con.usuario = usu.idusuario AND 

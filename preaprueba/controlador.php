@@ -84,6 +84,7 @@ class ApiControlador
                     'centro_de_costo' => $valor['centro_de_costo'],
                     'pre_aprueba' => $valor['pre_aprueba'],
                     'division' => $valor['division'],
+                    'usuario' => $valor['usuario'],
                     'estado' => 'activo',
                 );
                 array_push($listaArr, $item);

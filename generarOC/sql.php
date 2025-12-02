@@ -2,9 +2,11 @@
 
 include_once '../db.php';
 
-class Sql extends DB{
+class Sql extends DB
+{
 
-  function listarSolicitudesAprobadas(){
+  function listarSolicitudesAprobadas()
+  {
     $query = $this->connect()->prepare("select idsms,concat('Nro: ',idsms,' - Carga: ',date_format(fecha_carga,'%d/%m/%Y')) descripcion from sms where estado = 'aprobado' order by fecha_carga desc");
     if ($query->execute()) {
       return $query->fetchAll();
@@ -13,7 +15,8 @@ class Sql extends DB{
     }
   }
 
-  function agregarCabecera($item){
+  function agregarCabecera($item)
+  {
     $query = $this->connect()->prepare("insert into generar_oc(fecha_creacion,empresa,proveedor,doc_proveedor,plazo_oc,pago_oc,pre_aprueba,pre_aprueba2,tipo_oc,num_doc_proveedor,plazo_entrega,tipo_documento_compra,sub_total,descuento_total,exento_total,neto_total,iva_total,retencion_total,total_general,referencia_adjunto,tipo_adjunto,estado) values(now(),:empresa,:proveedor,:tipoDocumentoProveedor,:plazo,:formaPago,:preAprueba,:preAprueba2,:tipoOc,:nroDocumentoProveedor,:plazoEntrega,:tipoDocumentoCompra,:subTotal,:descuento,:exento,:neto,:iva,:retencion,:total,:codigoAjunto,:extension,'activo')");
     $query->bindParam(":codigoAjunto", $item['codigoAjunto'], PDO::PARAM_STR);
     $query->bindParam(":extension", $item['extension'], PDO::PARAM_STR);
@@ -42,7 +45,8 @@ class Sql extends DB{
     }
   }
 
-  function modificarCabeceraCompleto($item){
+  function modificarCabeceraCompleto($item)
+  {
     $query = $this->connect()->prepare("update generar_oc 
         set 
             empresa = :empresa,
@@ -94,7 +98,8 @@ class Sql extends DB{
     }
   }
 
-  function modificarCabeceraSinImagen($item){
+  function modificarCabeceraSinImagen($item)
+  {
     $query = $this->connect()->prepare("update generar_oc 
         set 
             empresa = :empresa,
@@ -142,7 +147,8 @@ class Sql extends DB{
     }
   }
 
-  function verificarCabecera($item){
+  function verificarCabecera($item)
+  {
     $query = $this->connect()->prepare("select * from generar_oc where estado = 'activo' and 
         referencia_adjunto = :codigoAjunto");
     $query->bindParam(":codigoAjunto", $item['codigoAjunto'], PDO::PARAM_STR);
@@ -153,7 +159,8 @@ class Sql extends DB{
     }
   }
 
-  function agregarDetalle($item){
+  function agregarDetalle($item)
+  {
     $query = $this->connect()->prepare("insert into detalle_oc(generar_oc,sms,detalle_sms,nro_item,aplicacion,tipo_producto,glosa,unidad_de_medida,cantidad,costo_unitario,tipo_descuento,valor_descuento,sub_total,estado) values(:nroOc,:nroSms,:nroSmsDetalle,:itemSms,:aplicacion,:tipoProducto,:glosa,:unidadDeMedida,:cantidad,:costoUnitario,:tipoDescuento,:valorDescuento,:subTotal,:estado)");
     $query->bindParam(":nroOc", $item['nroOc'], PDO::PARAM_STR);
     $query->bindParam(":nroSms", $item['nroSms'], PDO::PARAM_STR);
@@ -178,8 +185,31 @@ class Sql extends DB{
 
 
   //**********************************************
-  function listarHerramientas(){
+  function listarHerramientas()
+  {
     $query = $this->connect()->prepare("select * from generar_oc where estado = 'activo'");
+    if ($query->execute()) {
+      return $query->fetchAll();
+    } else {
+      return null;
+    }
+  }
+
+  function listarAprueba()
+  {
+    $query = $this->connect()->prepare("SELECT em.descripcion AS empresa,
+                                                goc.idgenerar_oc,
+                                                goc.fecha_creacion,
+                                                pr.rut AS doc_proveedor,
+                                                pr.descripcion AS proveedor,
+                                                goc.total_general,
+                                                us.nombre AS pre_aprueba,
+                                                goc.estado
+                                                FROM generar_oc goc
+                                                JOIN empresa em ON em.idempresa = goc.empresa
+                                                JOIN proveedor pr ON pr.idproveedor = goc.proveedor
+                                                JOIN usuario us ON us.idusuario = goc.pre_aprueba
+                                                WHERE goc.estado = 'activo'");
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
@@ -197,7 +227,7 @@ class Sql extends DB{
     } else {
       return null;
     }
-  }  
+  }
 
   function obtenerDatosParaModificar($item)
   {
@@ -223,7 +253,8 @@ class Sql extends DB{
     }
   }
 
-  function eliminarDetalle($item){
+  function eliminarDetalle($item)
+  {
     $query = $this->connect()->prepare("delete from detalle_oc where generar_oc = :idOc");
     $query->bindParam(":idOc", $item['idOc'], PDO::PARAM_STR);
     if ($query->execute()) {
@@ -233,7 +264,8 @@ class Sql extends DB{
     }
   }
 
-  function procesarSms($item){
+  function procesarSms($item)
+  {
     $query = $this->connect()->prepare("update sms set estado = 'procesado' where idsms = :nroSms");
     $query->bindParam(":nroSms", $item['nroSms'], PDO::PARAM_STR);
     if ($query->execute()) {
@@ -290,7 +322,8 @@ class Sql extends DB{
     }
   }
 
-  function listarOCActivas(){
+  function listarOCActivas()
+  {
     $query = $this->connect()->prepare("select 
       oc.idgenerar_oc,
       date_format(oc.fecha_creacion,'%d/%m/%Y %H:%i') fecha_creacion,
@@ -308,14 +341,14 @@ class Sql extends DB{
     }
   }
 
-  function listarDetalleOCParaEditar($item){
+  function listarDetalleOCParaEditar($item)
+  {
     $query = $this->connect()->prepare("select * from detalle_oc where generar_oc = :id");
-      $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
       return null;
     }
   }
-
 }

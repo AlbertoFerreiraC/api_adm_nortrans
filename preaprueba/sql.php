@@ -23,7 +23,8 @@ class Sql extends DB
         emp.descripcion empresa,
         car.descripcion cargo,
         cdc.descripcion centro_de_costo,
-        usu.nombre pre_aprueba
+        usu.nombre pre_aprueba,
+        usu.nombre AS usuario
         FROM contratacion con
         JOIN empresa emp ON emp.idempresa = con.empresa
         JOIN cargo car ON car.idcargo = con.cargo

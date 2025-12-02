@@ -80,6 +80,7 @@ class ApiControlador
                     'cargo' => $valor['cargo'],
                     'cantidad_solicitada' => $valor['cantidad_solicitada'],
                     'estado' => 'activo',
+                    'solicitante' => 'usuario',
                     'cantidad_contratada' => $valor['cantidad_contratada']
                 );
                 array_push($listaArr, $item);
