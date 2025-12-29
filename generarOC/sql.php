@@ -351,4 +351,55 @@ class Sql extends DB
       return null;
     }
   }
+
+  function listarOCParaEntrega()
+  {
+    $query = $this->connect()->prepare("
+        SELECT 
+            em.descripcion AS empresa,
+            goc.idgenerar_oc,
+            DATE_FORMAT(goc.fecha_creacion,'%d/%m/%Y') AS fecha_creacion,
+            goc.plazo_entrega,
+            goc.tipo_oc,
+            pr.rut AS doc_proveedor,
+            pr.descripcion AS proveedor,
+            goc.tipo_documento_compra,
+            goc.total_general
+        FROM generar_oc goc
+        JOIN empresa em ON em.idempresa = goc.empresa
+        JOIN proveedor pr ON pr.idproveedor = goc.proveedor
+        WHERE goc.estado = 'aprobado'
+        ORDER BY goc.fecha_creacion DESC
+    ");
+
+    if ($query->execute()) {
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+      return [];
+    }
+  }
+
+  function marcarOCEntregada($id)
+  {
+    try {
+
+      $query = $this->connect()->prepare("
+            UPDATE generar_oc
+            SET estado = 'entregado',
+                fecha_aprobacion = NOW()
+            WHERE idgenerar_oc = :id
+              AND estado = 'aprobado'
+        ");
+
+      $query->bindParam(":id", $id, PDO::PARAM_INT);
+
+      if ($query->execute()) {
+        return $query->rowCount() > 0 ? "ok" : "nok";
+      } else {
+        return "nok";
+      }
+    } catch (PDOException $e) {
+      return "nok";
+    }
+  }
 }
