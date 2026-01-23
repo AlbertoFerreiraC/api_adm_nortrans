@@ -7,25 +7,68 @@ class Sql extends DB
 
   function listarApruebaApi($item)
   {
-    $query = $this->connect()->prepare("SELECT * FROM sms WHERE estado = 'pre_aprobado' AND pre_aprueba = :id");
-    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    $query = $this->connect()->prepare("
+        SELECT
+            sm.idsms,
+            sm.bodega,
+            sm.maquina,
+            sm.pre_aprueba,
+            sm.estado,
+            sm.fecha_carga,
+            sm.tipo,
+            sm.observacion_pre_aprobacion AS observacion,
+
+            emp.descripcion AS empresa,
+
+            usu.nombre AS solicitante,
+            pre.nombre AS pre_aprobador
+
+        FROM sms sm
+        JOIN empresa emp ON sm.empresa = emp.idempresa
+        JOIN usuario usu ON sm.usuario = usu.idusuario
+        JOIN usuario pre ON sm.pre_aprueba = pre.idusuario
+
+        WHERE sm.estado = 'pre_aprobado'
+          AND sm.pre_aprueba = :id
+    ");
+
+    $query->bindParam(":id", $item['id'], PDO::PARAM_INT);
+
     if ($query->execute()) {
-      return $query->fetchAll();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
     } else {
       return null;
     }
   }
 
+
   function listarPreApruebaApi($item)
   {
-    $query = $this->connect()->prepare("SELECT * FROM sms WHERE estado = 'activo' AND pre_aprueba = :id");
-    $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
+    $query = $this->connect()->prepare("
+        SELECT
+            sm.idsms,
+            sm.bodega,
+            sm.maquina,
+            sm.pre_aprueba,
+            sm.estado,
+            sm.fecha_carga,
+            sm.tipo,
+            sm.observacion_pre_aprobacion AS observacion,
+            emp.descripcion AS empresa,
+            usu.nombre AS usuario
+        FROM sms sm
+        JOIN empresa emp ON sm.empresa = emp.idempresa
+        JOIN usuario usu ON sm.usuario = usu.idusuario
+        WHERE sm.estado = 'activo'
+    ");
+
     if ($query->execute()) {
-      return $query->fetchAll();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
     } else {
       return null;
     }
   }
+
 
   function listarAnularApi($item)
   {

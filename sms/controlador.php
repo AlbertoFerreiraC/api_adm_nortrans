@@ -14,7 +14,7 @@ class ApiControlador
             foreach ($lista as $clave => $valor) {
                 $item = array(
                     'id' => $valor['idsms'],
-                    'usuario' => $valor['usuario'],
+                    'usuario' => $valor['solicitante'],
                     'bodega' => $valor['bodega'],
                     'empresa' => $valor['empresa'],
                     'maquina' => $valor['maquina'],
