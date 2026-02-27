@@ -14,7 +14,7 @@ class ApiUsuario
             foreach ($lista as $clave => $valor) {
                 $item = array(
                     'idusuario' => $valor['idusuario'],
-                    'rol' => $valor['rol'],
+                    'rol' => $valor['descripcionRol'],
                     'cedula' => $valor['cedula'],
                     'nombre' => $valor['nombre'],
                     'nic' => $valor['nic'],
@@ -82,7 +82,8 @@ class ApiUsuario
             foreach ($lista as $clave => $valor) {
                 $item = array(
                     'id' => $valor['idusuario'],
-                    'rol' => $valor['rol'],
+                    'rol' => $valor['descripcionRol'],
+                    'idroles' => $valor['idroles'],
                     'cedula' => $valor['cedula'],
                     'nombre' => $valor['nombre'],
                     'nic' => $valor['nic'],

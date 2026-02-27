@@ -6,7 +6,7 @@ class Usuario extends DB{
 
 
     function listar(){
-        $query = $this->connect()->prepare("select * from usuario where estado = 'activo'");
+        $query = $this->connect()->prepare("select usu.*,ro.descripcionRol from usuario usu,roles ro where usu.estado = 'activo' and usu.roles = ro.idroles");
         if($query->execute()){
           return $query->fetchAll();
         }else{
@@ -38,7 +38,7 @@ class Usuario extends DB{
   }
 
     function agregar($item){
-        $query = $this->connect()->prepare("insert into usuario(rol,cedula,nombre,telefono,correo,nic,pass,pre_aprueba,aprueba,estado,fecha_creacion) values(:rol,:cedula,:nombre,:telefono,:correo,:nic,'MTIzNDU=',:preAprueba,:aprueba,'activo',now())");
+        $query = $this->connect()->prepare("insert into usuario(roles,cedula,nombre,telefono,correo,nic,pass,pre_aprueba,aprueba,estado,fecha_creacion) values(:rol,:cedula,:nombre,:telefono,:correo,:nic,'MTIzNDU=',:preAprueba,:aprueba,'activo',now())");
         $query->bindParam(":rol", $item['rol'], PDO::PARAM_STR);
         $query->bindParam(":cedula", $item['cedula'], PDO::PARAM_STR);
         $query->bindParam(":nombre", $item['nombre'], PDO::PARAM_STR);
@@ -56,8 +56,7 @@ class Usuario extends DB{
     }
 
     function obtenerDatosParaModificar($item){
-      $query = $this->connect()->prepare("select * from usuario where estado = 'activo' and 
-      idusuario = :id");
+      $query = $this->connect()->prepare("select usu.*,ro.descripcionRol,ro.idroles from usuario usu,roles ro where usu.estado = 'activo' and usu.roles = ro.idroles and usu.idusuario = :id");
       $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
       if($query->execute()){
         return $query->fetchAll();
@@ -68,7 +67,7 @@ class Usuario extends DB{
 
     function modificar($item){
       $query = $this->connect()->prepare("update usuario set 
-          rol = :rol,   
+          roles = :rol,   
           cedula = :cedula, 
           nombre = :nombre,
           nic = :nic,
