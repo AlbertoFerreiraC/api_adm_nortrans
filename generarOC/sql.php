@@ -402,4 +402,71 @@ class Sql extends DB
       return "nok";
     }
   }
+
+  function listarOC()
+  {
+
+    $query = $this->connect()->prepare("
+
+        SELECT
+ oc.idgenerar_oc,
+ oc.fecha_creacion,
+ emp.descripcion AS empresa,
+ oc.tipo_oc,
+ prv.rut AS doc_proveedor,
+ prv.descripcion AS proveedor,
+ poc.descripcion AS pago_oc,
+ plc.descripcion AS plazo_oc,
+ oc.tipo_documento_compra,
+ oc.num_doc_proveedor,
+ oc.total_general
+FROM generar_oc oc
+JOIN empresa emp ON oc.empresa = emp.idempresa
+JOIN proveedor prv ON oc.proveedor = prv.idproveedor
+JOIN pago_oc poc ON oc.pago_oc = poc.idpago_oc
+JOIN plazo_oc plc ON oc.plazo_oc = plc.idplazo_oc
+ORDER BY oc.fecha_creacion DESC
+
+    ");
+
+    if ($query->execute()) {
+
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+
+      return null;
+    }
+  }
+
+  function listarDetalleOC()
+  {
+
+    $query = $this->connect()->prepare("
+
+        SELECT
+            generar_oc,
+            nro_item,
+            aplicacion,
+            tipo_producto,
+            glosa,
+            unidad_de_medida,
+            cantidad,
+            costo_unitario,
+            sub_total,
+            estado
+
+        FROM detalle_oc
+
+        ORDER BY generar_oc DESC, nro_item ASC
+
+    ");
+
+    if ($query->execute()) {
+
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+
+      return null;
+    }
+  }
 }

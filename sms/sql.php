@@ -16,18 +16,14 @@ class Sql extends DB
             sm.estado,
             sm.fecha_carga,
             sm.tipo,
-            sm.observacion_pre_aprobacion AS observacion,
-
+            sm.observacion_pre_aprobacion,
             emp.descripcion AS empresa,
-
             usu.nombre AS solicitante,
             pre.nombre AS pre_aprobador
-
         FROM sms sm
         JOIN empresa emp ON sm.empresa = emp.idempresa
         JOIN usuario usu ON sm.usuario = usu.idusuario
         JOIN usuario pre ON sm.pre_aprueba = pre.idusuario
-
         WHERE sm.estado = 'pre_aprobado'
           AND sm.pre_aprueba = :id
     ");
@@ -53,7 +49,7 @@ class Sql extends DB
             sm.estado,
             sm.fecha_carga,
             sm.tipo,
-            sm.observacion_pre_aprobacion AS observacion,
+            sm.observacion AS observacion,
             emp.descripcion AS empresa,
             usu.nombre AS usuario
         FROM sms sm
@@ -200,6 +196,44 @@ class Sql extends DB
     if ($query->execute()) {
       return $query->fetchAll();
     } else {
+      return null;
+    }
+  }
+
+  function listarConsultaSMS()
+  {
+
+    $query = $this->connect()->prepare("
+
+        SELECT
+    sm.idsms,
+    sm.estado,
+    sm.observacion,
+    ds.aplicacion,
+    cdc.descripcion AS centro_de_costo,
+    ds.tipo,
+    prd.descripcion AS producto,
+    ds.cantidad
+FROM sms sm
+JOIN detalle_sms ds 
+    ON sm.idsms = ds.sms
+JOIN centro_de_costo cdc 
+    ON ds.centro_de_costo = cdc.idcentro_de_costo
+JOIN producto prd 
+    ON prd.idproducto = 
+        CASE 
+            WHEN ds.repuestos IS NOT NULL THEN ds.repuestos
+            ELSE ds.insumos
+        END
+ORDER BY sm.fecha_carga DESC;
+
+    ");
+
+    if ($query->execute()) {
+
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+
       return null;
     }
   }

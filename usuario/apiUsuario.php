@@ -20,8 +20,14 @@ class ApiUsuario
                     'nic' => $valor['nic'],
                     'telefono' => $valor['telefono'],
                     'correo' => $valor['correo'],
-                    'preAprueba' => $valor['pre_aprueba'],
-                    'aprueba' => $valor['aprueba']
+                    'preApruebaSolContratacion' => $valor['pre_aprueba_sol_contratacion'],
+                    'apruebaSolContratacion' => $valor['aprueba_sol_contratacion'],
+                    'preApruebaAsigFondoFijo' => $valor['pre_aprueba_asig_fondo_fijo'],
+                    'apruebaAsigFondoFijo' => $valor['aprueba_asig_fondo_fijo'],
+                    'preApruebaGenerarOc' => $valor['pre_aprueba_generar_oc'],
+                    'apruebaGenerarOc' => $valor['aprueba_generar_oc'],
+                    'preApruebaGenerarSms' => $valor['pre_aprueba_generar_sms'],
+                    'apruebaGenerarSms' => $valor['aprueba_generar_sms']
                 );
                 array_push($listaArr, $item);
             }
@@ -89,8 +95,14 @@ class ApiUsuario
                     'nic' => $valor['nic'],
                     'telefono' => $valor['telefono'],
                     'correo' => $valor['correo'],
-                    'preAprueba' => $valor['pre_aprueba'],
-                    'aprueba' => $valor['aprueba']
+                    'preApruebaSolContratacion' => $valor['pre_aprueba_sol_contratacion'],
+                    'apruebaSolContratacion' => $valor['aprueba_sol_contratacion'],
+                    'preApruebaAsigFondoFijo' => $valor['pre_aprueba_asig_fondo_fijo'],
+                    'apruebaAsigFondoFijo' => $valor['aprueba_asig_fondo_fijo'],
+                    'preApruebaGenerarOc' => $valor['pre_aprueba_generar_oc'],
+                    'apruebaGenerarOc' => $valor['aprueba_generar_oc'],
+                    'preApruebaGenerarSms' => $valor['pre_aprueba_generar_sms'],
+                    'apruebaGenerarSms' => $valor['aprueba_generar_sms']
                 );
                 array_push($listaArr, $item);
             }
@@ -134,8 +146,14 @@ class ApiUsuario
                 'nic' => $array['nic'],
                 'telefono' => $array['telefono'],
                 'correo' => $array['correo'],
-                'preAprueba' => $array['preAprueba'],
-                'aprueba' => $array['aprueba']
+                'solicitudContratacionAprueba' => $array['solicitudContratacionAprueba'],
+                'solicitudContratacionPreAprueba' => $array['solicitudContratacionPreAprueba'],
+                'fondoFijoAprueba' => $array['fondoFijoAprueba'],
+                'fondoFijoPreAprueba' => $array['fondoFijoPreAprueba'],
+                'generarOCAprueba' => $array['generarOCAprueba'],
+                'generarOCPreAprueba' => $array['generarOCPreAprueba'],
+                'generarSMSAprueba' => $array['generarSMSAprueba'],
+                'generarSMSPreAprueba' => $array['generarSMSPreAprueba']
             );
             $editar = $objeto->modificar($datos);
             if ($editar == "ok") {

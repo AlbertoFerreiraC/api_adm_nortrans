@@ -5,7 +5,8 @@ include_once 'sql.php';
 
 class ApiControlador
 {
-    function listarSolicitudesAprobadasApi(){
+    function listarSolicitudesAprobadasApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarSolicitudesAprobadas();
         $listaArr = array();
@@ -24,71 +25,74 @@ class ApiControlador
         }
     }
 
-    function agregarCabeceraApi($array){
+    function agregarCabeceraApi($array)
+    {
         $clasificacion = new Sql();
-            $guardar = $clasificacion->agregarCabecera($array);
-            if ($guardar == "ok") {
-                $consulta = $clasificacion->verificarCabecera($array);
-                if (!empty($consulta)) {
-                  exito($consulta[0]['idgenerar_oc']);
-                }else{
-                  exito("nok");  
-                }                
+        $guardar = $clasificacion->agregarCabecera($array);
+        if ($guardar == "ok") {
+            $consulta = $clasificacion->verificarCabecera($array);
+            if (!empty($consulta)) {
+                exito($consulta[0]['idgenerar_oc']);
             } else {
                 exito("nok");
             }
+        } else {
+            exito("nok");
+        }
     }
 
-    function funModificarCabeceraApi($array){
+    function funModificarCabeceraApi($array)
+    {
         $clasificacion = new Sql();
-        if($array['codigoAjunto'] != "Sin Archivo"){
+        if ($array['codigoAjunto'] != "Sin Archivo") {
             $actualizar = $clasificacion->modificarCabeceraCompleto($array);
             if ($actualizar == "ok") {
-                exito($array['id']);               
+                exito($array['id']);
             } else {
                 exito("nok");
             }
-        }else{
+        } else {
             $actualizar = $clasificacion->modificarCabeceraSinImagen($array);
             if ($actualizar == "ok") {
-                exito($array['id']);               
+                exito($array['id']);
             } else {
                 exito("nok");
             }
         }
-            
     }
 
-    function agregarDetalleApi($array){
+    function agregarDetalleApi($array)
+    {
         $clasificacion = new Sql();
-                $clasificacion->eliminarDetalle($array);
-                foreach ($array['tabla']as $clave => $valor) {
-                    $datosDetalle = array( 
-                        'nroOc'=> $array['idOc'],
-                        'nroSms'=> $valor->nroSms,
-                        'nroSmsDetalle'=> $valor->nroSmsDetalle,
-                        'itemSms'=> $valor->itemSms,
-                        'aplicacion'=> $valor->aplicacion,
-                        'tipoProducto'=> $valor->tipoProducto,
-                        'glosa'=> $valor->glosa,
-                        'unidadDeMedida'=> $valor->unidadDeMedida,
-                        'cantidad'=> $valor->cantidad,
-                        'costoUnitario'=> $valor->costoUnitario,
-                        'tipoDescuento'=> $valor->tipoDescuento,
-                        'valorDescuento'=> $valor->valorDescuento,
-                        'subTotal'=> $valor->subTotal,
-                        'estado'=> $valor->estado
-                    );
-                    $clasificacion->agregarDetalle($datosDetalle);
-                 //   $clasificacion->procesarSms($datosDetalle);
-                }    
-                exito("ok");              
+        $clasificacion->eliminarDetalle($array);
+        foreach ($array['tabla'] as $clave => $valor) {
+            $datosDetalle = array(
+                'nroOc' => $array['idOc'],
+                'nroSms' => $valor->nroSms,
+                'nroSmsDetalle' => $valor->nroSmsDetalle,
+                'itemSms' => $valor->itemSms,
+                'aplicacion' => $valor->aplicacion,
+                'tipoProducto' => $valor->tipoProducto,
+                'glosa' => $valor->glosa,
+                'unidadDeMedida' => $valor->unidadDeMedida,
+                'cantidad' => $valor->cantidad,
+                'costoUnitario' => $valor->costoUnitario,
+                'tipoDescuento' => $valor->tipoDescuento,
+                'valorDescuento' => $valor->valorDescuento,
+                'subTotal' => $valor->subTotal,
+                'estado' => $valor->estado
+            );
+            $clasificacion->agregarDetalle($datosDetalle);
+            //   $clasificacion->procesarSms($datosDetalle);
+        }
+        exito("ok");
     }
 
 
     //*************************************************/
 
-    function listarHerramientasApi(){
+    function listarHerramientasApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarHerramientas();
         $listaArr = array();
@@ -128,7 +132,8 @@ class ApiControlador
         }
     }
 
-    function listarAprobacionApi(){
+    function listarAprobacionApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarAprueba();
         $listaArr = array();
@@ -152,8 +157,9 @@ class ApiControlador
             header("HTTP/1.1 401 Unauthorized");
         }
     }
-    
-    function listarOCActivasApi(){
+
+    function listarOCActivasApi()
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarOCActivas();
         $listaArr = array();
@@ -177,7 +183,8 @@ class ApiControlador
         }
     }
 
-    function obtenerDatosParaModificarApi($array){
+    function obtenerDatosParaModificarApi($array)
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->obtenerDatosParaModificar($array);
         $listaArr = array();
@@ -220,7 +227,8 @@ class ApiControlador
         }
     }
 
-    function listarDetalleOCParaEditarApi($array){
+    function listarDetalleOCParaEditarApi($array)
+    {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarDetalleOCParaEditar($array);
         $listaArr = array();
@@ -252,7 +260,8 @@ class ApiControlador
         }
     }
 
-    function modificarApi($array){
+    function modificarApi($array)
+    {
         $clasificacion = new Sql();
         //********************************************************************    
         $verificarExistencia = $clasificacion->verificar_existencia($array);
@@ -283,7 +292,8 @@ class ApiControlador
         }
     }
 
-    function aprobarApi($array){
+    function aprobarApi($array)
+    {
         $clasificacion = new Sql();
 
         if (!isset($array['id']) || empty($array['id'])) {
@@ -300,7 +310,8 @@ class ApiControlador
     }
 
 
-    function rechazarApi($array){
+    function rechazarApi($array)
+    {
         $clasificacion = new Sql();
 
         if (!isset($array['id']) || empty($array['id'])) {
@@ -316,7 +327,8 @@ class ApiControlador
         }
     }
 
-    function eliminarApi($array){
+    function eliminarApi($array)
+    {
         $clasificacion = new Sql();
         //********************************************************************    
         $eliminar = $clasificacion->eliminar($array);
@@ -325,6 +337,73 @@ class ApiControlador
         } else {
             exito("nok");
         }
+    }
+
+    function listarOC()
+    {
+
+        $sql = new Sql();
+
+        $lista = $sql->listarOC();
+
+        $listaArr = array();
+
+        if (!empty($lista)) {
+
+            foreach ($lista as $valor) {
+
+                $item = array(
+                    'idgenerar_oc' => $valor['idgenerar_oc'],
+                    'empresa' => $valor['empresa'],
+                    'tipo_oc' => $valor['tipo_oc'],
+                    'fecha_creacion' => $valor['fecha_creacion'],
+                    'doc_proveedor' => $valor['doc_proveedor'],
+                    'proveedor' => $valor['proveedor'],
+                    'plazo_oc' => $valor['plazo_oc'],
+                    'pago_oc' => $valor['pago_oc'],
+                    'tipo_documento_compra' => $valor['tipo_documento_compra'],
+                    'num_doc_proveedor' => $valor['num_doc_proveedor'],
+                    'total_general' => $valor['total_general']
+                );
+
+                array_push($listaArr, $item);
+            }
+        }
+
+        printJSON($listaArr);
+    }
+
+    function listarDetalleOC()
+    {
+
+        $sql = new Sql();
+
+        $lista = $sql->listarDetalleOC();
+
+        $listaArr = array();
+
+        if (!empty($lista)) {
+
+            foreach ($lista as $valor) {
+
+                $item = array(
+                    'generar_oc' => $valor['generar_oc'],
+                    'nro_item' => $valor['nro_item'],
+                    'aplicacion' => $valor['aplicacion'],
+                    'tipo_producto' => $valor['tipo_producto'],
+                    'producto' => $valor['glosa'],
+                    'unidad_de_medida' => $valor['unidad_de_medida'],
+                    'cantidad' => $valor['cantidad'],
+                    'costo_unitario' => $valor['costo_unitario'],
+                    'sub_total' => $valor['sub_total'],
+                    'estado' => $valor['estado']
+                );
+
+                array_push($listaArr, $item);
+            }
+        }
+
+        printJSON($listaArr);
     }
 } //FIN API SESIONES
 

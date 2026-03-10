@@ -9,9 +9,13 @@ class ApiControlador
     {
         $clasificacion = new Sql();
         $lista = $clasificacion->listarApruebaApi($array);
+
         $listaArr = array();
+
         if (!empty($lista)) {
+
             foreach ($lista as $clave => $valor) {
+
                 $item = array(
                     'id' => $valor['idsms'],
                     'usuario' => $valor['solicitante'],
@@ -20,16 +24,17 @@ class ApiControlador
                     'maquina' => $valor['maquina'],
                     'pre_aprueba' => $valor['pre_aprueba'],
                     'tipo' => $valor['tipo'],
-                    'observacion' => $valor['observacion'],
                     'fecha_carga' => $valor['fecha_carga'],
                     'estado' => $valor['estado'],
+                    'observacion_pre_aprobacion' => $valor['observacion_pre_aprobacion']
                 );
+
                 array_push($listaArr, $item);
             }
-            printJSON($listaArr);
-        } else {
-            header("HTTP/1.1 401 Unauthorized");
         }
+
+        // SIEMPRE devolver JSON aunque esté vacío
+        printJSON($listaArr);
     }
 
     function listarAnularApi($array)
@@ -152,6 +157,37 @@ class ApiControlador
         } else {
             exito("nok", "No se pudo completar el rechazo");
         }
+    }
+
+    function listarConsultaSMS()
+    {
+
+        $clasificacion = new Sql();
+
+        $lista = $clasificacion->listarConsultaSMS();
+
+        $listaArr = array();
+
+        if (!empty($lista)) {
+
+            foreach ($lista as $valor) {
+
+                $item = array(
+                    'idsms' => $valor['idsms'],
+                    'aplicacion' => $valor['aplicacion'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'tipo' => $valor['tipo'],
+                    'producto' => $valor['producto'],
+                    'cantidad' => $valor['cantidad'],
+                    'observacion' => $valor['observacion'],
+                    'estado' => $valor['estado']
+                );
+
+                array_push($listaArr, $item);
+            }
+        }
+
+        printJSON($listaArr);
     }
 } //FIN API SESIONES
 

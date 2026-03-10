@@ -12,8 +12,14 @@
         'nic' => $datos->nic,
         'telefono' => $datos->telefono,       
         'correo' => $datos->correo,
-        'preAprueba' => $datos->preAprueba,
-        'aprueba' => $datos->aprueba
+        'solicitudContratacionAprueba' => $datos->solicitudContratacionAprueba,
+        'solicitudContratacionPreAprueba' => $datos->solicitudContratacionPreAprueba,
+        'fondoFijoAprueba' => $datos->fondoFijoAprueba,
+        'fondoFijoPreAprueba' => $datos->fondoFijoPreAprueba,
+        'generarOCAprueba' => $datos->generarOCAprueba,
+        'generarOCPreAprueba' => $datos->generarOCPreAprueba,
+        'generarSMSAprueba' => $datos->generarSMSAprueba,
+        'generarSMSPreAprueba' => $datos->generarSMSPreAprueba
     );
     $api -> agregarApi($item);
 ?>
