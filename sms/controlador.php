@@ -23,6 +23,10 @@ class ApiControlador
                     'observacion' => $valor['observacion'],
                     'fecha_carga' => $valor['fecha_carga'],
                     'estado' => $valor['estado'],
+                    'aplicacion' => $valor['aplicacion'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'insumos' => $valor['insumos'],
+                    'cantidad' => $valor['cantidad'],
                 );
                 array_push($listaArr, $item);
             }
@@ -50,6 +54,11 @@ class ApiControlador
                     'observacion' => $valor['observacion'],
                     'fecha_carga' => $valor['fecha_carga'],
                     'estado' => $valor['estado'],
+                    'aplicacion' => $valor['aplicacion'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'insumos' => $valor['insumos'],
+                    'cantidad' => $valor['cantidad'],
+                  
                 );
                 array_push($listaArr, $item);
             }
@@ -77,6 +86,10 @@ class ApiControlador
                     'observacion' => $valor['observacion'],
                     'fecha_carga' => $valor['fecha_carga'],
                     'estado' => $valor['estado'],
+                    'aplicacion' => $valor['aplicacion'],
+                    'centro_de_costo' => $valor['centro_de_costo'],
+                    'insumos' => $valor['insumos'],
+                    'cantidad' => $valor['cantidad'],
                 );
                 array_push($listaArr, $item);
             }
