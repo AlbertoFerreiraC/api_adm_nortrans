@@ -62,7 +62,6 @@ class ApiControlador
                     'centro_de_costo' => $valor['centro_de_costo'],
                     'insumos' => $valor['insumos'],
                     'cantidad' => $valor['cantidad'],
-                  
                 );
                 array_push($listaArr, $item);
             }

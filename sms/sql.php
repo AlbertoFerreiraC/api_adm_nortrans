@@ -69,7 +69,7 @@ class Sql extends DB
   function listarAnularApi($item)
   {
     $query = $this->connect()->prepare("
-        SELECT 
+        SELECT asms.*, ds.*,
        ds.aplicacion,
        ds.tipo,
        ds.cantidad,
