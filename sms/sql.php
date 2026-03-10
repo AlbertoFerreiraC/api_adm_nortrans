@@ -69,10 +69,18 @@ class Sql extends DB
   function listarAnularApi($item)
   {
     $query = $this->connect()->prepare("
-        SELECT * 
-        FROM sms 
-        WHERE estado IN ('activo', 'pre_aprobado') 
-          AND pre_aprueba = :id");
+        SELECT 
+       ds.aplicacion,
+       ds.tipo,
+       ds.cantidad,
+       asms.estado,
+       p.descripcion as insumos,
+       cdc.descripcion as centro_de_costo
+       FROM sms asms
+       join detalle_sms ds on ds.sms = asms.idsms 
+       LEFT JOIN producto p ON ds.insumos  = p.idproducto
+       join centro_de_costo cdc on ds.centro_de_costo  =cdc.idcentro_de_costo 
+       WHERE asms.estado IN ('activo', 'pre_aprobado') AND asms.pre_aprueba = :id");
     $query->bindParam(":id", $item['id'], PDO::PARAM_STR);
 
     if ($query->execute()) {
